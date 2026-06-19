@@ -1,0 +1,50 @@
+[
+  {
+    "id": "nikke-event-cinderella-poll-2026-06",
+    "type": "event",
+    "gameId": "goddess-of-victory-nikke",
+    "title": "Doki Doki NIKKE: голосование за костюм Cinderella",
+    "description": "Глобальное голосование за новый дизайн костюма Cinderella — победителя Global Popularity Poll IV. Костюм-победитель будет создан и выдан всем командирам бесплатно.",
+    "startAt": "2026-06-17T11:00:00+09:00",
+    "endAt": "2026-06-24T23:59:00+09:00",
+    "timezone": "Asia/Seoul",
+    "region": "Global",
+    "eventSubtype": "web",
+    "rewards": [
+      "Recruit Voucher (за голос)",
+      "Recruit Voucher (за репост в соцсетях)",
+      "Бесплатный костюм-победитель (позже)"
+    ],
+    "rewardSummary": "До 2 Recruit Voucher за участие; бесплатный костюм-победитель будет выдан всем командирам.",
+    "summonCurrencyAmount": 2,
+    "requirements": "Проголосовать за дизайн костюма; репост в соцсетях даёт второй ваучер.",
+    "sourceType": "official",
+    "confidence": "confirmed",
+    "sourceUrls": ["https://nikke-en.com/events/cinderellapoll/"],
+    "verifiedAt": "2026-06-19T00:00:00+00:00",
+    "verificationNote": "Даты подтверждены официально (17–24 июня 2026, до 23:59 UTC+9). Точное время начала в источнике не детализировано — приведено ориентировочно.",
+    "isDemo": false
+  },
+  {
+    "id": "wow-event-turbulent-timeways-2026",
+    "type": "event",
+    "gameId": "world-of-warcraft",
+    "title": "Turbulent Timeways",
+    "description": "Временное событие с подземельями Dragonflight (шесть подземелий) и обновлённым набором наград.",
+    "startAt": "2026-06-30T08:00:00-07:00",
+    "endAt": "2026-08-11T08:00:00-07:00",
+    "timezone": "America/Los_Angeles",
+    "region": "Global",
+    "eventSubtype": "limited-mode",
+    "rewards": ["Награды за шесть подземелий Dragonflight (новый набор)"],
+    "rewardSummary": "Возвращение Timewalking-подземелий Dragonflight с новым набором наград.",
+    "sourceType": "official",
+    "confidence": "confirmed",
+    "sourceUrls": [
+      "https://worldofwarcraft.blizzard.com/en-us/content-update-notes"
+    ],
+    "verifiedAt": "2026-06-19T00:00:00+00:00",
+    "verificationNote": "Даты подтверждены официально (30 июня – 11 августа 2026). Точное время начала и региональные различия в источнике не детализированы — время приведено ориентировочно.",
+    "isDemo": false
+  }
+]

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "nikke-event-cinderella-poll-2026-06",
+    "type": "event",
+    "gameId": "goddess-of-victory-nikke",
+    "title": "Doki Doki NIKKE: Cinderella costume poll",
+    "description": "Global vote for the new Cinderella costume design, tied to the Global Popularity Poll IV winner. The winning costume is planned to be created and distributed to all Commanders for free later.",
+    "startAt": "2026-06-17T11:00:00+09:00",
+    "endAt": "2026-06-24T23:59:00+09:00",
+    "timezone": "Asia/Seoul",
+    "region": "Global",
+    "eventSubtype": "web",
+    "rewards": [
+      "Recruit Voucher for voting",
+      "Recruit Voucher for social repost",
+      "Free winner costume later"
+    ],
+    "rewardSummary": "Up to 2 Recruit Vouchers for participation; the winning Cinderella costume will be distributed later.",
+    "summonCurrencyAmount": 2,
+    "requirements": "Vote for a costume design; social repost grants the second voucher.",
+    "sourceType": "official",
+    "confidence": "confirmed",
+    "sourceUrls": ["https://nikke-en.com/events/cinderellapoll/"],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Official event page confirms the June 17-24, 2026 schedule and voucher rewards. Start time is kept from the existing project record.",
+    "isDemo": false
+  },
+  {
+    "id": "diablo-event-season-14-campfire-2026-06",
+    "type": "event",
+    "gameId": "diablo-iv",
+    "title": "Season 14 Campfire Chat and Twitch Drop",
+    "description": "Developer livestream for Diablo IV Season 14, Season of Death Awakening, with a limited Twitch Drop cosmetic during the stream window.",
+    "startAt": "2026-06-23T11:00:00-07:00",
+    "endAt": "2026-06-23T13:00:00-07:00",
+    "timezone": "America/Los_Angeles",
+    "region": "Global",
+    "eventSubtype": "web",
+    "rewards": ["Falx Infectus sword cosmetic Twitch Drop"],
+    "rewardSummary": "Watch eligible Diablo IV streams during the update livestream to earn the Falx Infectus sword cosmetic.",
+    "requirements": "Watch for 30 minutes during the livestream window.",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.gamesradar.com/games/diablo/as-diablo-4-season-14-ptr-leaves-players-feeling-mixed-blizzard-announces-developer-livestream-to-reveal-what-is-and-isnt-changing/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "GamesRadar reports Blizzard's announced livestream time and Twitch Drop reward. End time is approximate because the article confirms the start time and 30-minute watch requirement, not a precise stream duration.",
+    "isDemo": false
+  },
+  {
+    "id": "endfield-event-1-1-maintenance-compensation-2026-03",
+    "type": "event",
+    "gameId": "arknights-endfield",
+    "title": "Version 1.1 maintenance compensation",
+    "description": "Maintenance window for Arknights: Endfield Version 1.1, with compensation for accounts created before the update.",
+    "startAt": "2026-03-12T06:00:00+08:00",
+    "endAt": "2026-03-12T12:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "region": "Global",
+    "eventSubtype": "reward-event",
+    "rewards": ["900 Oroberyl"],
+    "rewardSummary": "900 Oroberyl maintenance compensation.",
+    "premiumCurrencyName": "Oroberyl",
+    "premiumCurrencyAmount": 900,
+    "requirements": "Account created before the Version 1.1 update.",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://timesofindia.indiatimes.com/sports/esports/news/arknights-endfield-1-1-release-timings-for-all-regions/articleshow/129474698.cms"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "The source gives the maintenance window and compensation amount for Version 1.1. This is archived content, kept because completed records must not be deleted when relevant.",
+    "isDemo": false
+  },
+  {
+    "id": "wow-event-turbulent-timeways-2026",
+    "type": "event",
+    "gameId": "world-of-warcraft",
+    "title": "Turbulent Timeways",
+    "description": "Limited Timewalking event featuring Dragonflight dungeons and an updated reward set.",
+    "startAt": "2026-06-30T08:00:00-07:00",
+    "endAt": "2026-08-11T08:00:00-07:00",
+    "timezone": "America/Los_Angeles",
+    "region": "Global",
+    "eventSubtype": "limited-mode",
+    "rewards": ["Dragonflight Timewalking rewards"],
+    "rewardSummary": "Dragonflight Timewalking dungeons with an updated reward set.",
+    "sourceType": "official",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://worldofwarcraft.blizzard.com/en-us/content-update-notes"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Kept from the existing project data. Search did not surface a stronger dated public source during this pass, so the record remains single-source.",
+    "isDemo": false
+  },
+  {
+    "id": "nikke-coordinated-operation-modernia",
+    "gameId": "goddess-of-victory-nikke",
+    "type": "event",
+    "title": "Coordinated Operation — Modernia",
+    "description": "Кооперативное сражение с Modernia.",
+    "startAt": "2026-06-19T12:00:00+09:00",
+    "endAt": "2026-06-21T23:59:59+09:00",
+    "timezone": "Asia/Seoul",
+    "region": "Global",
+    "sourceType": "official",
+    "confidence": "confirmed",
+    "sourceUrls": [
+      "https://nikke-en.com/newsdetail.html?content_id=68ead9d1abbaca414ea8c74ab921293a6fec",
+      "https://nikke.gg/june-11-2026-update-patch-notes/"
+    ],
+    "verifiedAt": "2026-06-19T00:00:00+00:00",
+    "isDemo": false,
+    "eventSubtype": "limited-mode",
+    "rewards": ["Gems", "development materials", "equipment materials"],
+    "rewardSummary": "Самоцветы и материалы через обмен Broken Cores.",
+    "premiumCurrencyName": "Gems"
+  }
+]

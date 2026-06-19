@@ -1,0 +1,40 @@
+<svg viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Neverness to Everness — anime city">
+  <defs>
+    <linearGradient id="nte-bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1e3a8a"/>
+      <stop offset="0.55" stop-color="#3b82f6"/>
+      <stop offset="1" stop-color="#0b1230"/>
+    </linearGradient>
+    <radialGradient id="nte-moon" cx="0.2" cy="0.25" r="0.4">
+      <stop offset="0" stop-color="#dbeafe"/>
+      <stop offset="1" stop-color="#dbeafe" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nte-glow"><feGaussianBlur stdDeviation="5"/></filter>
+  </defs>
+  <rect width="800" height="450" fill="url(#nte-bg)"/>
+  <circle cx="170" cy="120" r="130" fill="url(#nte-moon)"/>
+  <circle cx="170" cy="120" r="44" fill="#eff6ff" opacity="0.9"/>
+  <!-- floating surreal islands -->
+  <g opacity="0.85" filter="url(#nte-glow)">
+    <ellipse cx="560" cy="120" rx="60" ry="14" fill="#60a5fa"/>
+    <ellipse cx="660" cy="200" rx="40" ry="10" fill="#93c5fd"/>
+  </g>
+  <!-- modern skyline -->
+  <g fill="#0b1733">
+    <rect x="60" y="280" width="46" height="170"/><rect x="120" y="240" width="40" height="210"/>
+    <rect x="178" y="300" width="60" height="150"/><rect x="250" y="220" width="44" height="230"/>
+    <rect x="306" y="290" width="56" height="160"/><rect x="372" y="250" width="48" height="200"/>
+    <rect x="430" y="300" width="64" height="150"/><rect x="506" y="200" width="50" height="250"/>
+    <rect x="568" y="290" width="60" height="160"/><rect x="640" y="250" width="46" height="200"/>
+    <rect x="700" y="300" width="64" height="150"/>
+  </g>
+  <!-- windows -->
+  <g fill="#67e8f9" opacity="0.8">
+    <rect x="262" y="240" width="6" height="6"/><rect x="276" y="270" width="6" height="6"/>
+    <rect x="518" y="220" width="6" height="6"/><rect x="532" y="250" width="6" height="6"/>
+    <rect x="132" y="260" width="6" height="6"/>
+  </g>
+  <!-- stars -->
+  <g fill="#eff6ff"><circle cx="420" cy="80" r="2"/><circle cx="600" cy="60" r="1.6"/><circle cx="720" cy="120" r="2"/><circle cx="360" cy="150" r="1.4"/></g>
+  <rect width="800" height="450" fill="#081024" opacity="0.14"/>
+</svg>

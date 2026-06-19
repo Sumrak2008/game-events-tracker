@@ -1,0 +1,278 @@
+[
+  {
+    "id": "genshin-banner-lohen-2026-06",
+    "type": "banner",
+    "gameId": "genshin-impact",
+    "title": "Character Event Wish: Lohen",
+    "description": "Version 6.6 Phase 2 limited character banner featuring Lohen, a new 5-star Cryo polearm character.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-09T00:00:00+00:00",
+    "endAt": "2026-06-30T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/genshin-impact-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Lohen as a current Version 6.6 Phase 2 banner running June 9-30, 2026. Exact in-game reset times were not available in the source, so the tracker stores date-level UTC boundaries.",
+    "isDemo": false
+  },
+  {
+    "id": "genshin-banner-mavuika-2026-06",
+    "type": "banner",
+    "gameId": "genshin-impact",
+    "title": "Character Event Wish: Mavuika",
+    "description": "Version 6.6 Phase 2 rerun character banner featuring Mavuika, a 5-star Pyro claymore character.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-09T00:00:00+00:00",
+    "endAt": "2026-06-30T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/genshin-impact-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Mavuika as a current Version 6.6 Phase 2 banner running June 9-30, 2026. Exact in-game reset times were not available in the source, so the tracker stores date-level UTC boundaries.",
+    "isDemo": false
+  },
+  {
+    "id": "genshin-weapon-banner-lohen-mavuika-2026-06",
+    "type": "banner",
+    "gameId": "genshin-impact",
+    "title": "Weapon Event Wish: Lohen and Mavuika signatures",
+    "description": "Version 6.6 Phase 2 weapon banner featuring the signature weapons for Lohen and Mavuika.",
+    "bannerSubtype": "weapon",
+    "startAt": "2026-06-09T00:00:00+00:00",
+    "endAt": "2026-06-30T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/genshin-impact-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "The source confirms the current weapon banner features the signature weapons for Lohen and Mavuika, but does not provide weapon names in the captured article text.",
+    "isDemo": false
+  },
+  {
+    "id": "zzz-banner-velina-3-0",
+    "type": "banner",
+    "gameId": "zenless-zone-zero",
+    "title": "Exclusive Channel: Velina",
+    "description": "Version 3.0 limited S-Rank agent banner for Velina Airgid of the External Strategy Department.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-17T10:00:00+08:00",
+    "endAt": "2026-07-08T03:59:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "region": "Global",
+    "sourceType": "official",
+    "confidence": "single-source",
+    "sourceUrls": ["https://www.hoyoverse.com/en-us/news/164653"],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Existing project source identifies Velina as a Version 3.0 debut agent. Exact phase dates remain single-source in the tracker.",
+    "isDemo": false
+  },
+  {
+    "id": "zzz-banner-norma-3-0",
+    "type": "banner",
+    "gameId": "zenless-zone-zero",
+    "title": "Exclusive Channel: Norma",
+    "description": "Version 3.0 limited S-Rank agent banner for Norma Hollowell, scheduled after Velina.",
+    "bannerSubtype": "character",
+    "startAt": "2026-07-08T10:00:00+08:00",
+    "endAt": "2026-07-29T03:59:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "region": "Global",
+    "sourceType": "official",
+    "confidence": "single-source",
+    "sourceUrls": ["https://www.hoyoverse.com/en-us/news/164653"],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Existing project source identifies Norma as a Version 3.0 debut agent. Exact phase dates remain single-source in the tracker.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-banner-mortenax-blade-2026-06",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Character Event Warp: Mortenax Blade",
+    "description": "Version 4.3 Phase 1 limited character banner featuring Mortenax Blade with boosted 4-stars Sampo, Luka, and Tingyun.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-01T00:00:00+00:00",
+    "endAt": "2026-06-24T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Mortenax Blade as a current Version 4.3 banner running June 1-24, 2026. Exact in-game reset times were not available in the source.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-banner-yao-guang-2026-06",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Character Event Warp: Yao Guang",
+    "description": "Version 4.3 Phase 1 limited character banner featuring Yao Guang with boosted 4-stars Sampo, Luka, and Tingyun.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-01T00:00:00+00:00",
+    "endAt": "2026-06-24T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Yao Guang as a current Version 4.3 banner running June 1-24, 2026. Exact in-game reset times were not available in the source.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-light-cone-banner-2026-06-phase-1",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Light Cone Event Warp: Reforged in Hellfire / When She Decided to See",
+    "description": "Version 4.3 Phase 1 Light Cone banners for Mortenax Blade and Yao Guang signatures.",
+    "bannerSubtype": "weapon",
+    "startAt": "2026-06-01T00:00:00+00:00",
+    "endAt": "2026-06-24T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Source lists Reforged in Hellfire and When She Decided to See as the current Phase 1 Light Cone banners, June 1-24, 2026.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-banner-phainon-2026-06",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Character Event Warp: Phainon",
+    "description": "Version 4.3 Phase 2 limited character banner featuring Phainon with boosted 4-stars March 7th, Arlan, and Yukong.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-24T00:00:00+00:00",
+    "endAt": "2026-07-14T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Phainon as a next Version 4.3 banner running June 24-July 14, 2026. Exact in-game reset times were not available in the source.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-banner-cyrene-2026-06",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Character Event Warp: Cyrene",
+    "description": "Version 4.3 Phase 2 limited character banner featuring Cyrene with boosted 4-stars March 7th, Arlan, and Yukong.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-24T00:00:00+00:00",
+    "endAt": "2026-07-14T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Cyrene as a next Version 4.3 banner running June 24-July 14, 2026. Exact in-game reset times were not available in the source.",
+    "isDemo": false
+  },
+  {
+    "id": "hsr-light-cone-banner-2026-06-phase-2",
+    "type": "banner",
+    "gameId": "honkai-star-rail",
+    "title": "Light Cone Event Warp: Thus Burns the Dawn / This Love, Forever",
+    "description": "Version 4.3 Phase 2 Light Cone banners for Phainon and Cyrene signatures.",
+    "bannerSubtype": "weapon",
+    "startAt": "2026-06-24T00:00:00+00:00",
+    "endAt": "2026-07-14T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Source lists Thus Burns the Dawn and This Love, Forever as the next Phase 2 Light Cone banners, June 24-July 14, 2026.",
+    "isDemo": false
+  },
+  {
+    "id": "nte-banner-lacrimosa-2026-06",
+    "type": "banner",
+    "gameId": "neverness-to-everness",
+    "title": "Limited Banner: Lacrimosa",
+    "description": "Version 1.1 Phase 1 limited S-Class character banner for Lacrimosa, with boosted A-Class characters Mint, Edgar, and Adler.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-03T00:00:00+00:00",
+    "endAt": "2026-06-24T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/action/neverness-to-everness-banners-next-current-gacha-explained/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Lacrimosa as the current Version 1.1 banner running June 3-24, 2026. Exact in-game reset times were not available in the source.",
+    "isDemo": false
+  },
+  {
+    "id": "nte-weapon-banner-last-rose-2026-06",
+    "type": "banner",
+    "gameId": "neverness-to-everness",
+    "title": "Arc Research Program: The Last Rose",
+    "description": "Current Arc weapon banner featuring Lacrimosa's signature S-Class Liquid Arc, The Last Rose.",
+    "bannerSubtype": "weapon",
+    "startAt": "2026-06-03T00:00:00+00:00",
+    "endAt": "2026-06-24T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/action/neverness-to-everness-banners-next-current-gacha-explained/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Source lists The Last Rose as Lacrimosa's current S-Class Liquid Arc weapon banner in Version 1.1 Phase 1.",
+    "isDemo": false
+  },
+  {
+    "id": "nte-banner-chaos-2026-06",
+    "type": "banner",
+    "gameId": "neverness-to-everness",
+    "title": "Limited Banner: Chaos",
+    "description": "Version 1.1 Phase 2 limited character banner for Chaos.",
+    "bannerSubtype": "character",
+    "startAt": "2026-06-24T00:00:00+00:00",
+    "endAt": "2026-07-08T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/action/neverness-to-everness-banners-next-current-gacha-explained/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer lists Chaos as the next Version 1.1 banner running June 24-July 8, 2026. Boosted A-Class characters were TBC in the source.",
+    "isDemo": false
+  }
+]

@@ -1,0 +1,148 @@
+[
+  {
+    "id": "genshin-season-6-6",
+    "type": "season",
+    "gameId": "genshin-impact",
+    "title": "Version 6.6",
+    "description": "Current Genshin Impact version cycle with Phase 2 banners for Lohen and Mavuika.",
+    "startAt": "2026-05-20T00:00:00+00:00",
+    "endAt": "2026-06-30T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/genshin-impact-banner-next-current/",
+      "https://www.pcgamer.com/games/rpg/genshin-impact-codes-6-6-livestream/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "PC Gamer identifies the current banner period as Version 6.6 Phase 2 and separately describes Version 6.6 livestream content. Version start is inferred from the existing project cycle and should be rechecked against official patch notes when available.",
+    "isDemo": false,
+    "note": "Version dates are date-level tracker boundaries, not exact server maintenance times."
+  },
+  {
+    "id": "hsr-season-4-3",
+    "type": "season",
+    "gameId": "honkai-star-rail",
+    "title": "Version 4.3",
+    "description": "Current Honkai: Star Rail version cycle with Phase 1 banners Mortenax Blade and Yao Guang, followed by Phase 2 banners Phainon and Cyrene.",
+    "startAt": "2026-06-01T00:00:00+00:00",
+    "endAt": "2026-07-14T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Version window is derived from PC Gamer's Version 4.3 banner schedule: Phase 1 June 1-24 and Phase 2 June 24-July 14, 2026.",
+    "isDemo": false,
+    "note": "Version dates are date-level tracker boundaries, not exact server maintenance times."
+  },
+  {
+    "id": "zzz-season-3-0",
+    "type": "season",
+    "gameId": "zenless-zone-zero",
+    "title": "Version 3.0: A Sleepwalker's Confession",
+    "description": "Current Zenless Zone Zero version cycle featuring Season 3 and debut agents Velina and Norma.",
+    "startAt": "2026-06-17T10:00:00+08:00",
+    "endAt": "2026-07-29T10:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "region": "Global",
+    "sourceType": "official",
+    "confidence": "single-source",
+    "sourceUrls": ["https://zenless.hoyoverse.com/en-us/news/164775"],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Kept from the existing project source for Version 3.0. End date follows the tracked two-phase banner cycle and remains single-source.",
+    "isDemo": false
+  },
+  {
+    "id": "endfield-season-1-1",
+    "type": "season",
+    "gameId": "arknights-endfield",
+    "title": "Version 1.1: Old Deep Water Dies, by Rising Tide It is Denied",
+    "description": "First major Arknights: Endfield content update, introducing Version 1.1 and new 6-star Operators Tangtang and Rossi.",
+    "startAt": "2026-03-12T12:00:00+08:00",
+    "endAt": "2026-04-23T12:00:00+08:00",
+    "timezone": "Asia/Shanghai",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://timesofindia.indiatimes.com/sports/esports/news/arknights-endfield-1-1-release-timings-for-all-regions/articleshow/129474698.cms"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Source confirms Version 1.1 release time and new operators, but not the next version date. End date is retained as an estimated six-week version boundary and should be rechecked before publication.",
+    "isDemo": false,
+    "note": "Archived, partially estimated version window."
+  },
+  {
+    "id": "nte-season-1-1",
+    "type": "season",
+    "gameId": "neverness-to-everness",
+    "title": "Version 1.1",
+    "description": "Current Neverness to Everness version cycle with Lacrimosa in Phase 1 and Chaos in Phase 2.",
+    "startAt": "2026-06-03T00:00:00+00:00",
+    "endAt": "2026-07-08T23:59:00+00:00",
+    "timezone": "UTC",
+    "region": "Global",
+    "sourceType": "specialist",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://www.pcgamer.com/games/action/neverness-to-everness-banners-next-current-gacha-explained/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Version window is derived from PC Gamer's Version 1.1 banner history: Lacrimosa June 3-24 and Chaos June 24-July 8, 2026.",
+    "isDemo": false,
+    "note": "Version dates are date-level tracker boundaries, not exact server maintenance times."
+  },
+  {
+    "id": "diablo-season-of-reckoning",
+    "type": "season",
+    "gameId": "diablo-iv",
+    "title": "Season of Reckoning",
+    "description": "Current Diablo IV season, launched with the Lord of Hatred expansion cycle. Blizzard has announced the next season, Season of Death Awakening, for a June 23, 2026 reveal livestream.",
+    "startAt": "2026-04-27T16:30:00-07:00",
+    "endAt": "2026-07-28T10:00:00-07:00",
+    "timezone": "America/Los_Angeles",
+    "region": "Americas",
+    "sourceType": "official",
+    "confidence": "single-source",
+    "sourceUrls": [
+      "https://news.blizzard.com/en-us/article/24267729/prepare-for-the-reckoning-lord-of-hatred-draws-near",
+      "https://www.gamesradar.com/games/diablo/as-diablo-4-season-14-ptr-leaves-players-feeling-mixed-blizzard-announces-developer-livestream-to-reveal-what-is-and-isnt-changing/"
+    ],
+    "verifiedAt": "2026-06-19T12:00:00+00:00",
+    "verificationNote": "Start is from the existing official Blizzard source. GamesRadar reports Season 14 is announced for a June 23 livestream, but does not provide a replacement start date. End remains the existing estimated season boundary.",
+    "isDemo": false,
+    "note": "End date should be rechecked after Blizzard's June 23 Season 14 livestream."
+  },
+  {
+    "id": "nikke-solo-raid-season-38",
+    "gameId": "goddess-of-victory-nikke",
+    "type": "season",
+    "title": "Solo Raid — Season 38",
+    "description": "Рейдовый сезон с рейтинговыми наградами.",
+    "startAt": "2026-06-18T12:00:00+09:00",
+    "endAt": "2026-06-25T04:59:59+09:00",
+    "timezone": "Asia/Seoul",
+    "region": "Global",
+    "sourceType": "official",
+    "confidence": "confirmed",
+    "sourceUrls": [
+      "https://nikke-en.com/newsdetail.html?content_id=68ead9d1abbaca414ea8c74ab921293a6fec",
+      "https://nikke.gg/june-11-2026-update-patch-notes/"
+    ],
+    "verifiedAt": "2026-06-19T00:00:00+00:00",
+    "isDemo": false,
+    "rewards": [
+      "Gems",
+      "Special Frames",
+      "Harmony Cube materials",
+      "Favorite Item materials"
+    ],
+    "rewardSummary": "Самоцветы, рамки и материалы.",
+    "premiumCurrencyName": "Gems"
+  }
+]

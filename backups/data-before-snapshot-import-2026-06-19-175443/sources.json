@@ -1,0 +1,58 @@
+[
+  {
+    "id": "src-genshin-official",
+    "gameId": "genshin-impact",
+    "name": "Genshin Impact — официальные новости",
+    "url": "https://genshin.hoyoverse.com/en/news",
+    "note": "Официальный новостной хаб HoYoverse. Используйте для проверки дат баннеров и событий."
+  },
+  {
+    "id": "src-zzz-official",
+    "gameId": "zenless-zone-zero",
+    "name": "Zenless Zone Zero — официальные новости",
+    "url": "https://zenless.hoyoverse.com/en-us/news",
+    "note": "Официальный новостной хаб HoYoverse."
+  },
+  {
+    "id": "src-hsr-official",
+    "gameId": "honkai-star-rail",
+    "name": "Honkai: Star Rail — официальные новости",
+    "url": "https://hsr.hoyoverse.com/en-us/news",
+    "note": "Официальный новостной хаб HoYoverse."
+  },
+  {
+    "id": "src-endfield-official",
+    "gameId": "arknights-endfield",
+    "name": "Arknights: Endfield — официальный сайт",
+    "url": "https://endfield.gryphline.com/en",
+    "note": "Официальный сайт Gryphline. Подтвердите актуальный новостной раздел перед вводом реальных данных."
+  },
+  {
+    "id": "src-nte-official",
+    "gameId": "neverness-to-everness",
+    "name": "Neverness to Everness — официальный канал",
+    "url": "https://www.youtube.com/@NevernessToEverness",
+    "note": "ПРОВЕРИТЬ: официальный домен/канал может измениться. Уточните перед вводом реальных данных."
+  },
+  {
+    "id": "src-diablo-official",
+    "gameId": "diablo-iv",
+    "name": "Diablo IV — официальные новости",
+    "url": "https://news.blizzard.com/en-us/diablo4",
+    "note": "Официальный новостной хаб Blizzard."
+  },
+  {
+    "id": "src-wow-official",
+    "gameId": "world-of-warcraft",
+    "name": "World of Warcraft — официальные новости",
+    "url": "https://worldofwarcraft.blizzard.com/en-us/news",
+    "note": "Официальный новостной хаб Blizzard."
+  },
+  {
+    "id": "src-nikke-official",
+    "gameId": "goddess-of-victory-nikke",
+    "name": "GODDESS OF VICTORY: NIKKE — официальный сайт",
+    "url": "https://nikke-en.com",
+    "note": "Официальный сайт игры. Подтвердите раздел новостей перед вводом реальных данных."
+  }
+]

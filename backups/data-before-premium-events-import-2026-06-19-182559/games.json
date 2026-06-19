@@ -1,0 +1,74 @@
+[
+  {
+    "id": "genshin-impact",
+    "name": "Genshin Impact",
+    "shortName": "Genshin",
+    "initials": "GI",
+    "publisher": "HoYoverse",
+    "colorFrom": "#2dd4bf",
+    "colorTo": "#0e7490"
+  },
+  {
+    "id": "zenless-zone-zero",
+    "name": "Zenless Zone Zero",
+    "shortName": "ZZZ",
+    "initials": "ZZZ",
+    "publisher": "HoYoverse",
+    "colorFrom": "#f59e0b",
+    "colorTo": "#b45309"
+  },
+  {
+    "id": "honkai-star-rail",
+    "name": "Honkai: Star Rail",
+    "shortName": "Star Rail",
+    "initials": "HSR",
+    "publisher": "HoYoverse",
+    "colorFrom": "#a78bfa",
+    "colorTo": "#6d28d9"
+  },
+  {
+    "id": "arknights-endfield",
+    "name": "Arknights: Endfield",
+    "shortName": "Endfield",
+    "initials": "AE",
+    "publisher": "Gryphline (Hypergryph)",
+    "colorFrom": "#fbbf24",
+    "colorTo": "#92400e"
+  },
+  {
+    "id": "neverness-to-everness",
+    "name": "Neverness to Everness",
+    "shortName": "Neverness",
+    "initials": "NTE",
+    "publisher": "Hotta Studio",
+    "colorFrom": "#60a5fa",
+    "colorTo": "#1d4ed8"
+  },
+  {
+    "id": "diablo-iv",
+    "name": "Diablo IV",
+    "shortName": "Diablo IV",
+    "initials": "D4",
+    "publisher": "Blizzard Entertainment",
+    "colorFrom": "#ef4444",
+    "colorTo": "#7f1d1d"
+  },
+  {
+    "id": "world-of-warcraft",
+    "name": "World of Warcraft",
+    "shortName": "WoW",
+    "initials": "WoW",
+    "publisher": "Blizzard Entertainment",
+    "colorFrom": "#fbbf24",
+    "colorTo": "#1e40af"
+  },
+  {
+    "id": "goddess-of-victory-nikke",
+    "name": "GODDESS OF VICTORY: NIKKE",
+    "shortName": "NIKKE",
+    "initials": "NIKKE",
+    "publisher": "Shift Up / Level Infinite",
+    "colorFrom": "#fb7185",
+    "colorTo": "#be123c"
+  }
+]
