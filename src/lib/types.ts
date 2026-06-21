@@ -38,7 +38,11 @@ export type Confidence =
   | "confirmed" // dates confirmed by an official source
   | "corroborated" // dates match in >= 2 independent non-official sources
   | "single-source" // only one acceptable third-party source
-  | "conflicting"; // sources disagree on dates/conditions
+  | "conflicting" // sources disagree on dates/conditions
+  | "unverified"; // found, but could not yet be checked against any acceptable source
+
+/** Role a registered source plays in the per-game discovery/verification pipeline. */
+export type SourceRole = "discovery" | "verification" | "fallback";
 
 export const RECORD_TYPES: RecordType[] = ["banner", "event", "season"];
 
@@ -86,6 +90,13 @@ export const CONFIDENCE_LEVELS: Confidence[] = [
   "corroborated",
   "single-source",
   "conflicting",
+  "unverified",
+];
+
+export const SOURCE_ROLES: SourceRole[] = [
+  "discovery",
+  "verification",
+  "fallback",
 ];
 
 export interface Game {
@@ -173,12 +184,38 @@ export interface TrackerRecord {
   claimEndAt?: string;
 }
 
-export interface Source {
+/**
+ * One concrete source entry in a game's source registry. There is no single
+ * universal source for every game — each entry plays a specific `role` in the
+ * discovery → verification → fallback pipeline for that game.
+ */
+export interface GameSourceEntry {
   id: string;
-  gameId: string;
   name: string;
-  url: string;
-  note?: string;
+  /** Root URL of the site (not necessarily the exact deep link). */
+  baseUrl: string;
+  role: SourceRole;
+  sourceType: SourceType;
+  /** Lower number = checked first within its role. */
+  priority: number;
+  supportsEvents: boolean;
+  supportsBanners: boolean;
+  supportsSeasons: boolean;
+  supportsRewards: boolean;
+  supportsRegionalDates: boolean;
+  /** Set to false to temporarily exclude a source without deleting it. */
+  enabled: boolean;
+  notesRu?: string;
+}
+
+/** Per-game source registry: where to look, in what order, for what purpose. */
+export interface GameSourceRegistry {
+  gameId: string;
+  discoverySources: GameSourceEntry[];
+  verificationSources: GameSourceEntry[];
+  fallbackSources: GameSourceEntry[];
+  /** Cross-cutting collection rules for this game (what to include/exclude). */
+  notesRu?: string;
 }
 
 /** A record enriched with runtime-computed fields (never persisted). */

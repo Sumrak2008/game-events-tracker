@@ -31,6 +31,7 @@ export const CONFIDENCE_LABELS: Record<Confidence, string> = {
   corroborated: "Несколько источников",
   "single-source": "Один сторонний источник",
   conflicting: "Требует проверки",
+  unverified: "Не проверено",
 };
 
 export const SOURCE_TYPE_LABELS: Record<SourceType, string> = {

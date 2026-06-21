@@ -152,7 +152,10 @@ export function RecordExplorer({
   const main = useMemo(
     () =>
       sortRecords(
-        filtered.filter((r) => r.confidence !== "conflicting"),
+        filtered.filter(
+          (r) =>
+            r.confidence !== "conflicting" && r.confidence !== "unverified",
+        ),
         sort,
       ),
     [filtered, sort],
@@ -160,7 +163,10 @@ export function RecordExplorer({
   const review = useMemo(
     () =>
       sortRecords(
-        filtered.filter((r) => r.confidence === "conflicting"),
+        filtered.filter(
+          (r) =>
+            r.confidence === "conflicting" || r.confidence === "unverified",
+        ),
         sort,
       ),
     [filtered, sort],

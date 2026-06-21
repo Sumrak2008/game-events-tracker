@@ -77,7 +77,7 @@ export function HomeDashboard({
 
   const groups = useMemo(() => {
     const computed = computeRecords(records, now).filter(
-      (r) => r.confidence !== "conflicting",
+      (r) => r.confidence !== "conflicting" && r.confidence !== "unverified",
     );
     const byEnd = (list: ComputedRecord[]) => sortRecords(list, "ending-soon");
     const active = computed.filter((r) => r.status === "active");

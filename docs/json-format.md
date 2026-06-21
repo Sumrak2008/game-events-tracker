@@ -10,7 +10,7 @@
 | `banners.json` | Записи типа `banner`. |
 | `events.json` | Записи типа `event`. |
 | `seasons.json` | Записи типа `season`. |
-| `sources.json` | Официальные источники по играм (справочник). |
+| `sources.json` | Реестр источников по играм (обнаружение/подтверждение/резерв), см. [docs/data-sources.md](data-sources.md). |
 
 Поле `type` в каждой записи должно совпадать с файлом.
 
@@ -43,7 +43,7 @@
 | `timezone` | string (IANA) | да | Напр. `Asia/Shanghai`. |
 | `region` | string | да | Напр. `Global`, `Asia`, `Europe`, `Americas`. |
 | `sourceType` | `official \| specialist \| wiki \| community` | да | Категория сильнейшего источника. |
-| `confidence` | `confirmed \| corroborated \| single-source \| conflicting` | да | Уровень достоверности дат. |
+| `confidence` | `confirmed \| corroborated \| single-source \| conflicting \| unverified` | да | Уровень достоверности дат. |
 | `sourceUrls` | string[] | да | Все использованные ссылки (≥1, первая — сильнейшая). |
 | `verifiedAt` | string (ISO 8601 + TZ) | да | Когда данные сверялись. |
 | `verificationNote` | string | нет | Причина неопределённости / как сверялось. |
@@ -57,6 +57,7 @@
 - `corroborated` — дата совпадает минимум в **двух независимых** сторонних источниках.
 - `single-source` — только один приемлемый сторонний источник. В UI — «Один сторонний источник».
 - `conflicting` — источники расходятся. В UI попадает в блок «Требует проверки», не среди подтверждённых.
+- `unverified` — сведения найдены, но пока не подтверждены ни одним приемлемым источником. В UI — тот же блок «Требует проверки».
 
 ## Поля баннера (`banners.json`)
 
@@ -115,14 +116,50 @@
 
 Обязательные поля; существование `gameId`; уникальность `id`; ISO-даты с TZ (`startAt`, `endAt`, `verifiedAt`, `claimEndAt`); `endAt ≥ startAt`; `region`; валидный IANA `timezone`; `sourceType`/`confidence` из допустимых наборов; `confirmed` только при `sourceType: official`; `sourceUrls` — непустой массив URL; допустимость `type`/`bannerSubtype`/`eventSubtype`; числовые `*CurrencyAmount`; `rewards` — массив строк; полные дубликаты; соглашение об `isDemo`.
 
-## Источник (`sources.json`)
+Дополнительно для `sources.json`: `gameId` каждого реестра существует и не дублируется; у каждого источника заполнены `id` (уникален), `name`, `baseUrl` (URL, либо `enabled: false` с предупреждением), `role` совпадает с массивом (`discoverySources`/`verificationSources`/`fallbackSources`), `sourceType` из допустимого набора, `priority` — число, все `supports*`/`enabled` — boolean; предупреждение, если у игры из `games.json` вовсе нет реестра.
+
+## Реестр источников (`sources.json`)
+
+`sources.json` — массив реестров источников по играм (`GameSourceRegistry`), не записей баннеров/событий/сезонов. У каждой игры свой набор источников обнаружения/подтверждения/резерва — подробное описание и таблица по каждой игре в [docs/data-sources.md](data-sources.md).
 
 ```json
 {
-  "id": "src-genshin-official",
   "gameId": "genshin-impact",
-  "name": "Genshin Impact — официальные новости",
-  "url": "https://genshin.hoyoverse.com/en/news",
-  "note": "Официальный новостной хаб."
+  "discoverySources": [
+    {
+      "id": "src-genshin-game8-events",
+      "name": "Game8 — Events Schedule and Calendar",
+      "baseUrl": "https://game8.co/games/Genshin-Impact",
+      "role": "discovery",
+      "sourceType": "specialist",
+      "priority": 1,
+      "supportsEvents": true,
+      "supportsBanners": false,
+      "supportsSeasons": true,
+      "supportsRewards": true,
+      "supportsRegionalDates": false,
+      "enabled": true,
+      "notesRu": "Используется для поиска полного перечня текущих и анонсированных событий версии."
+    }
+  ],
+  "verificationSources": [
+    {
+      "id": "src-genshin-official-news",
+      "name": "Genshin Impact — официальные новости",
+      "baseUrl": "https://genshin.hoyoverse.com/en/news",
+      "role": "verification",
+      "sourceType": "official",
+      "priority": 1,
+      "supportsEvents": true,
+      "supportsBanners": true,
+      "supportsSeasons": true,
+      "supportsRewards": true,
+      "supportsRegionalDates": true,
+      "enabled": true
+    }
+  ],
+  "fallbackSources": []
 }
 ```
+
+`enabled: false` помечает источник, который временно не используется (например, точный URL не подтверждён) — не брать из него данные, пока не проверено и не включено.

@@ -4,7 +4,7 @@ import { promises as fs } from "fs";
 import path from "path";
 import { cache } from "react";
 
-import type { Game, Source, TrackerRecord } from "@/lib/types";
+import type { Game, GameSourceRegistry, TrackerRecord } from "@/lib/types";
 
 const DATA_DIR = path.join(process.cwd(), "data");
 
@@ -16,7 +16,7 @@ async function readJson<T>(file: string): Promise<T> {
 export interface TrackerData {
   games: Game[];
   records: TrackerRecord[];
-  sources: Source[];
+  sourceRegistries: GameSourceRegistry[];
   /** Most recent verifiedAt across all records, in ms (null if none). */
   lastVerifiedMs: number | null;
   /**
@@ -33,13 +33,15 @@ export interface TrackerData {
  * identifies which kind it is.
  */
 export const getTrackerData = cache(async (): Promise<TrackerData> => {
-  const [games, banners, events, seasons, sources] = await Promise.all([
-    readJson<Game[]>("games.json"),
-    readJson<TrackerRecord[]>("banners.json"),
-    readJson<TrackerRecord[]>("events.json"),
-    readJson<TrackerRecord[]>("seasons.json"),
-    readJson<Source[]>("sources.json"),
-  ]);
+  const [games, banners, events, seasons, sourceRegistries] = await Promise.all(
+    [
+      readJson<Game[]>("games.json"),
+      readJson<TrackerRecord[]>("banners.json"),
+      readJson<TrackerRecord[]>("events.json"),
+      readJson<TrackerRecord[]>("seasons.json"),
+      readJson<GameSourceRegistry[]>("sources.json"),
+    ],
+  );
 
   const records = [...banners, ...events, ...seasons];
 
@@ -49,7 +51,13 @@ export const getTrackerData = cache(async (): Promise<TrackerData> => {
     return max === null || t > max ? t : max;
   }, null);
 
-  return { games, records, sources, lastVerifiedMs, now: Date.now() };
+  return {
+    games,
+    records,
+    sourceRegistries,
+    lastVerifiedMs,
+    now: Date.now(),
+  };
 });
 
 export function gamesById(games: Game[]): Map<string, Game> {

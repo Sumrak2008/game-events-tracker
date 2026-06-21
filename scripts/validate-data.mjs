@@ -60,6 +60,7 @@ const ALLOWED_CONFIDENCE = new Set([
   "corroborated",
   "single-source",
   "conflicting",
+  "unverified",
 ]);
 const ALLOWED_DATE_PRECISION = new Set(["date-only", "minute", "second"]);
 const ALLOWED_REWARD_CATEGORIES = new Set([
@@ -200,6 +201,89 @@ if (Array.isArray(games)) {
     else seenGameIds.add(g.id);
     if (!g.name) err(`Игра ${g.id ?? "?"} без поля name.`);
     if (!g.initials) warn(`Игра ${g.id ?? "?"} без поля initials.`);
+  }
+}
+
+// Source registry (data/sources.json)
+const ALLOWED_ROLES = new Set(["discovery", "verification", "fallback"]);
+const ROLE_FIELDS = {
+  discovery: "discoverySources",
+  verification: "verificationSources",
+  fallback: "fallbackSources",
+};
+const sourceRegistries = load("sources.json");
+if (!Array.isArray(sourceRegistries)) {
+  err("sources.json должен быть массивом реестров источников по играм.");
+} else {
+  const seenRegistryGameIds = new Set();
+  const seenSourceIds = new Set();
+  for (const registry of sourceRegistries) {
+    const rwhere = `sources.json (gameId=${registry?.gameId ?? "?"})`;
+    if (!registry.gameId) {
+      err(`${rwhere}: реестр без gameId.`);
+    } else if (!gameIds.has(registry.gameId)) {
+      err(`${rwhere}: gameId не найден в games.json.`);
+    } else if (seenRegistryGameIds.has(registry.gameId)) {
+      err(`${rwhere}: дубликат реестра для этой игры.`);
+    } else {
+      seenRegistryGameIds.add(registry.gameId);
+    }
+
+    for (const [role, field] of Object.entries(ROLE_FIELDS)) {
+      const entries = registry[field];
+      if (entries === undefined) continue;
+      if (!Array.isArray(entries)) {
+        err(`${rwhere}: ${field} должен быть массивом.`);
+        continue;
+      }
+      entries.forEach((s, i) => {
+        const swhere = `${rwhere}.${field}[${i}] (${s?.id ?? "без id"})`;
+        if (!s.id) err(`${swhere}: источник без id.`);
+        else if (seenSourceIds.has(s.id))
+          err(`${swhere}: дубликат id источника.`);
+        else seenSourceIds.add(s.id);
+        if (!s.name) err(`${swhere}: источник без name.`);
+        if (!isUrl(s.baseUrl)) {
+          if (s.enabled === false) {
+            warn(`${swhere}: baseUrl не подтверждён (источник отключён).`);
+          } else {
+            err(
+              `${swhere}: baseUrl не похоже на URL (или источник должен быть enabled: false).`,
+            );
+          }
+        }
+        if (s.role !== role) {
+          err(
+            `${swhere}: role "${s.role}" не совпадает с массивом "${field}".`,
+          );
+        } else if (!ALLOWED_ROLES.has(s.role)) {
+          err(`${swhere}: недопустимый role "${s.role}".`);
+        }
+        if (!ALLOWED_SOURCE_TYPES.has(s.sourceType)) {
+          err(`${swhere}: недопустимый sourceType "${s.sourceType}".`);
+        }
+        if (typeof s.priority !== "number") {
+          err(`${swhere}: priority должен быть числом.`);
+        }
+        for (const boolField of [
+          "supportsEvents",
+          "supportsBanners",
+          "supportsSeasons",
+          "supportsRewards",
+          "supportsRegionalDates",
+          "enabled",
+        ]) {
+          if (typeof s[boolField] !== "boolean") {
+            err(`${swhere}: ${boolField} должен быть boolean.`);
+          }
+        }
+      });
+    }
+  }
+  for (const g of gameIds) {
+    if (!seenRegistryGameIds.has(g)) {
+      warn(`Для игры "${g}" нет реестра источников в sources.json.`);
+    }
   }
 }
 

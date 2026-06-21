@@ -1,58 +1,618 @@
 [
   {
-    "id": "src-genshin-official",
     "gameId": "genshin-impact",
-    "name": "Genshin Impact — официальные новости",
-    "url": "https://genshin.hoyoverse.com/en/news",
-    "note": "Официальный новостной хаб HoYoverse. Используйте для проверки дат баннеров и событий."
+    "discoverySources": [
+      {
+        "id": "src-genshin-game8-events",
+        "name": "Game8 — Events Schedule and Calendar",
+        "baseUrl": "https://game8.co/games/Genshin-Impact",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Используется для поиска полного перечня текущих и анонсированных событий версии."
+      },
+      {
+        "id": "src-genshin-game8-banners",
+        "name": "Game8 — Current and Next Banner Schedule",
+        "baseUrl": "https://game8.co/games/Genshin-Impact",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Используется для поиска перечня текущих и следующих баннеров."
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-genshin-official-news",
+        "name": "Genshin Impact — официальные новости",
+        "baseUrl": "https://genshin.hoyoverse.com/en/news",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Сайт — JS-приложение (SPA), WebFetch не читает контент напрямую; открывать вручную/через поиск конкретной новости."
+      },
+      {
+        "id": "src-genshin-hoyolab",
+        "name": "HoYoLAB — официальные публикации",
+        "baseUrl": "https://www.hoyolab.com",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Официальные посты разработчика и издателя в сообществе HoYoLAB."
+      }
+    ],
+    "fallbackSources": [
+      {
+        "id": "src-genshin-wiki",
+        "name": "Genshin Impact Wiki",
+        "baseUrl": "https://genshin-impact.fandom.com",
+        "role": "fallback",
+        "sourceType": "wiki",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Только для поиска пропущенных записей и проверки наград. Сведения из вики не считать автоматически официально подтверждёнными — подтверждать через verification-источники."
+      }
+    ]
   },
   {
-    "id": "src-zzz-official",
     "gameId": "zenless-zone-zero",
-    "name": "Zenless Zone Zero — официальные новости",
-    "url": "https://zenless.hoyoverse.com/en-us/news",
-    "note": "Официальный новостной хаб HoYoverse."
+    "discoverySources": [
+      {
+        "id": "src-zzz-prydwen-banners",
+        "name": "Prydwen — Zenless Zone Zero Banners",
+        "baseUrl": "https://www.prydwen.gg/zenless",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Использовать для региональных дат баннеров и обратного отсчёта."
+      },
+      {
+        "id": "src-zzz-game8-events",
+        "name": "Game8 — календарь и список событий ZZZ",
+        "baseUrl": "https://game8.co/games/Zenless-Zone-Zero",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Список событий и сводки версии."
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-zzz-official-news",
+        "name": "Zenless Zone Zero News & Info",
+        "baseUrl": "https://zenless.hoyoverse.com/en-us/news",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Сайт — JS-приложение (SPA), WebFetch не читает контент напрямую; открывать вручную/через поиск конкретной новости."
+      },
+      {
+        "id": "src-zzz-official-event-pages",
+        "name": "Отдельные официальные страницы событий ZZZ",
+        "baseUrl": "https://zenless.hoyoverse.com/en-us/main",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": []
   },
   {
-    "id": "src-hsr-official",
     "gameId": "honkai-star-rail",
-    "name": "Honkai: Star Rail — официальные новости",
-    "url": "https://hsr.hoyoverse.com/en-us/news",
-    "note": "Официальный новостной хаб HoYoverse."
+    "discoverySources": [
+      {
+        "id": "src-hsr-prydwen-banners",
+        "name": "Prydwen — HSR Banners",
+        "baseUrl": "https://www.prydwen.gg/star-rail",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": true,
+        "enabled": true
+      },
+      {
+        "id": "src-hsr-prydwen-events",
+        "name": "Prydwen — Event Timeline",
+        "baseUrl": "https://www.prydwen.gg/star-rail",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true
+      },
+      {
+        "id": "src-hsr-game8-events",
+        "name": "Game8 — список событий текущей версии HSR",
+        "baseUrl": "https://game8.co/games/Honkai-Star-Rail",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 3,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-hsr-official-news",
+        "name": "Honkai: Star Rail — официальные новости",
+        "baseUrl": "https://hsr.hoyoverse.com/en-us/news",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Сайт — JS-приложение (SPA), WebFetch не читает контент напрямую; открывать вручную/через поиск конкретной новости."
+      },
+      {
+        "id": "src-hsr-official-update-details",
+        "name": "Официальные подробности обновления HSR",
+        "baseUrl": "https://hsr.hoyoverse.com/en-us/main",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true
+      },
+      {
+        "id": "src-hsr-hoyolab",
+        "name": "HoYoLAB — официальные публикации HSR",
+        "baseUrl": "https://www.hoyolab.com",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 3,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": []
   },
   {
-    "id": "src-endfield-official",
     "gameId": "arknights-endfield",
-    "name": "Arknights: Endfield — официальный сайт",
-    "url": "https://endfield.gryphline.com/en",
-    "note": "Официальный сайт Gryphline. Подтвердите актуальный новостной раздел перед вводом реальных данных."
+    "discoverySources": [
+      {
+        "id": "src-endfield-game8-events",
+        "name": "Game8 — All Events and Schedule",
+        "baseUrl": "https://game8.co/games/Arknights-Endfield",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-endfield-game8-banners",
+        "name": "Game8 — All Current and Upcoming Banners",
+        "baseUrl": "https://game8.co/games/Arknights-Endfield",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-endfield-official-news",
+        "name": "Arknights: Endfield — официальный News",
+        "baseUrl": "https://endfield.gryphline.com/en",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true,
+        "notesRu": "Подтвердите актуальный новостной раздел перед вводом реальных данных."
+      },
+      {
+        "id": "src-endfield-update-notes",
+        "name": "Arknights: Endfield — Version Update Notes",
+        "baseUrl": "https://endfield.gryphline.com/en",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-endfield-headhunting-pages",
+        "name": "Отдельные официальные страницы Chartered Headhunting и событий",
+        "baseUrl": "https://endfield.gryphline.com/en",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 3,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": true,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": []
   },
   {
-    "id": "src-nte-official",
     "gameId": "neverness-to-everness",
-    "name": "Neverness to Everness — официальный канал",
-    "url": "https://www.youtube.com/@NevernessToEverness",
-    "note": "ПРОВЕРИТЬ: официальный домен/канал может измениться. Уточните перед вводом реальных данных."
+    "discoverySources": [
+      {
+        "id": "src-nte-gamewith-events",
+        "name": "GameWith — Latest Event and Schedule",
+        "baseUrl": "https://gamewith.net",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-nte-gamewith-banners",
+        "name": "GameWith — Gacha Banner List and Schedule",
+        "baseUrl": "https://gamewith.net",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-nte-update-notes",
+        "name": "NTE Version Update Notes",
+        "baseUrl": "https://nte.perfectworld.com/en/article/news/gamebroad/",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Подтверждено: официальные заметки обновления версии 1.1 опубликованы на nte.perfectworld.com (раздел article/news/gamebroad)."
+      },
+      {
+        "id": "src-nte-official-announcements",
+        "name": "Официальные объявления событий NTE",
+        "baseUrl": "https://www.youtube.com/@NevernessToEverness",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "ПРОВЕРИТЬ: уточните актуальный официальный канал/сайт перед вводом реальных данных."
+      }
+    ],
+    "fallbackSources": [
+      {
+        "id": "src-nte-game8",
+        "name": "Game8 NTE",
+        "baseUrl": "https://game8.co/games/Neverness-to-Everness",
+        "role": "fallback",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-nte-gaming-outlets",
+        "name": "Крупные игровые издания (перекрёстная проверка баннеров)",
+        "baseUrl": "https://www.pcgamer.com",
+        "role": "fallback",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": false,
+        "supportsBanners": true,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Использовать только для перекрёстной проверки баннеров, не для основного обнаружения. Не использовать страницы с утечками и прогнозами будущих версий как подтверждённые данные."
+      }
+    ]
   },
   {
-    "id": "src-diablo-official",
-    "gameId": "diablo-iv",
-    "name": "Diablo IV — официальные новости",
-    "url": "https://news.blizzard.com/en-us/diablo4",
-    "note": "Официальный новостной хаб Blizzard."
-  },
-  {
-    "id": "src-wow-official",
-    "gameId": "world-of-warcraft",
-    "name": "World of Warcraft — официальные новости",
-    "url": "https://worldofwarcraft.blizzard.com/en-us/news",
-    "note": "Официальный новостной хаб Blizzard."
-  },
-  {
-    "id": "src-nikke-official",
     "gameId": "goddess-of-victory-nikke",
-    "name": "GODDESS OF VICTORY: NIKKE — официальный сайт",
-    "url": "https://nikke-en.com",
-    "note": "Официальный сайт игры. Подтвердите раздел новостей перед вводом реальных данных."
+    "discoverySources": [
+      {
+        "id": "src-nikke-gg-patchnotes",
+        "name": "Nikke.gg — разбор последнего обновления и patch notes",
+        "baseUrl": "https://nikke.gg",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-nikke-official-site",
+        "name": "GODDESS OF VICTORY: NIKKE — официальный сайт",
+        "baseUrl": "https://nikke-en.com",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-nikke-update-notice",
+        "name": "Официальный Update Notice соответствующей даты",
+        "baseUrl": "https://nikke-en.com/notice",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": true,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": [],
+    "notesRu": "Для каждого обновления последовательно проверять: Special Recruit, Limited Recruit, сюжетное событие, логин-событие, Solo Raid, Union Raid, Coordinated Operation, сезонные режимы с известными датами."
+  },
+  {
+    "gameId": "diablo-iv",
+    "discoverySources": [
+      {
+        "id": "src-diablo-wowhead-news",
+        "name": "Wowhead Diablo IV News",
+        "baseUrl": "https://www.wowhead.com/diablo-4/news",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-diablo-wowhead-events",
+        "name": "Wowhead Diablo IV Events",
+        "baseUrl": "https://www.wowhead.com/diablo-4/events",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-diablo-blizzard-news",
+        "name": "Diablo IV — официальные новости Blizzard",
+        "baseUrl": "https://news.blizzard.com/en-us/diablo4",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-diablo-current-season",
+        "name": "Официальная страница текущего сезона Diablo IV",
+        "baseUrl": "https://diablo4.blizzard.com/en-us/season",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": false,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": [],
+    "notesRu": "Не добавлять повторяющиеся Helltide, World Boss и Legion Events в текущую модель. Добавлять сезоны, ограниченные праздничные события, временные события с бонусами и бесплатными наградами."
+  },
+  {
+    "gameId": "world-of-warcraft",
+    "discoverySources": [
+      {
+        "id": "src-wow-wowhead-events",
+        "name": "Wowhead World Events",
+        "baseUrl": "https://www.wowhead.com/world-events",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-wow-darmory-calendar",
+        "name": "Darmory Event Calendar",
+        "baseUrl": "https://www.darmory.com/events/calendar",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": true,
+        "notesRu": "Подтверждено: точный URL календаря событий — darmory.com/events/calendar (прямой фетч успешен, показывает текущие/предстоящие события с датами)."
+      },
+      {
+        "id": "src-wow-today-in-wow",
+        "name": "Today in WoW",
+        "baseUrl": "https://www.todayinwow.com",
+        "role": "discovery",
+        "sourceType": "specialist",
+        "priority": 3,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": false,
+        "supportsRegionalDates": false,
+        "enabled": false,
+        "notesRu": "Домен найден (todayinwow.com), но прямой фетч даёт HTTP 403 (вероятно, защита от ботов) — содержимое подтвердить не удалось. Оставлено отключённым до проверки вручную."
+      }
+    ],
+    "verificationSources": [
+      {
+        "id": "src-wow-official-news",
+        "name": "World of Warcraft — официальные новости",
+        "baseUrl": "https://worldofwarcraft.blizzard.com/en-us/news",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 1,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": true,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      },
+      {
+        "id": "src-wow-event-pages",
+        "name": "Официальные публикации конкретных событий WoW",
+        "baseUrl": "https://worldofwarcraft.blizzard.com/en-us/news",
+        "role": "verification",
+        "sourceType": "official",
+        "priority": 2,
+        "supportsEvents": true,
+        "supportsBanners": false,
+        "supportsSeasons": false,
+        "supportsRewards": true,
+        "supportsRegionalDates": false,
+        "enabled": true
+      }
+    ],
+    "fallbackSources": [],
+    "notesRu": "Добавлять текущий сезон, мировые праздники, Timewalking, ограниченные игровые события, Торговую лавку, события с уникальными наградами. Не добавлять обычные ежедневные и еженедельные задания."
   }
 ]

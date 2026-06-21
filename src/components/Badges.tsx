@@ -74,6 +74,7 @@ const CONFIDENCE_CLASS: Record<Confidence, string> = {
   "single-source":
     "bg-amber-400/10 text-amber-300 ring-1 ring-inset ring-amber-400/40",
   conflicting: "bg-urgent/15 text-urgent ring-1 ring-inset ring-urgent/40",
+  unverified: "bg-surface-2 text-muted ring-border ring-1 ring-inset",
 };
 
 const CONFIDENCE_ICON: Record<Confidence, string> = {
@@ -81,6 +82,7 @@ const CONFIDENCE_ICON: Record<Confidence, string> = {
   corroborated: "OK",
   "single-source": "1",
   conflicting: "!",
+  unverified: "?",
 };
 
 export function ConfidenceBadge({ confidence }: { confidence: Confidence }) {
