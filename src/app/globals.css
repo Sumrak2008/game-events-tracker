@@ -1,27 +1,67 @@
 @import "tailwindcss";
 
 @theme {
+  /* --- Surfaces (dark base, lightest = most "raised") --- */
   --color-bg: #080b16;
   --color-bg-2: #0c1226;
   --color-surface: #121a32;
   --color-surface-2: #1a2444;
+  --color-surface-3: #222e54;
   --color-border: #29335a;
+  --color-border-strong: #3a4778;
+
+  /* --- Text --- */
   --color-text: #eef1fb;
   --color-muted: #9aa5c8;
+  --color-subtle: #6b7497;
+
+  /* --- Accent / brand --- */
   --color-accent: #818cf8;
   --color-accent-2: #f472b6;
 
-  --color-upcoming: #38bdf8;
-  --color-active: #34d399;
-  --color-completed: #94a3b8;
-  --color-urgent: #fb7185;
+  /* --- Semantic status colors (not type-specific) --- */
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger: #fb7185;
+  --color-info: #38bdf8;
 
+  /* --- Record lifecycle status --- */
+  --color-upcoming: var(--color-info);
+  --color-active: var(--color-success);
+  --color-completed: #94a3b8;
+  --color-urgent: var(--color-danger);
+
+  /* --- Record type accents --- */
   --color-banner: #c084fc;
   --color-event: #fbbf24;
   --color-season: #2dd4bf;
 
+  /* --- Confidence levels --- */
+  --color-confidence-confirmed: var(--color-success);
+  --color-confidence-corroborated: var(--color-season);
+  --color-confidence-single: var(--color-warning);
+  --color-confidence-conflicting: var(--color-danger);
+  --color-confidence-unverified: var(--color-subtle);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* --- Radii --- */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+
+  /* --- Shadows --- */
+  --shadow-sm: 0 1px 2px rgba(2, 4, 12, 0.4);
+  --shadow-md:
+    0 8px 24px -8px rgba(2, 4, 12, 0.55), 0 1px 0 rgba(255, 255, 255, 0.02);
+  --shadow-lg:
+    0 24px 60px -24px rgba(2, 4, 12, 0.7), 0 1px 0 rgba(255, 255, 255, 0.03);
+
+  /* --- Standard spacing rhythm used for card padding / section gaps --- */
+  --space-card: 1.25rem;
+  --space-section: 2.5rem;
 
   --animate-pulse-soft: pulse-soft 2.2s ease-in-out infinite;
   --animate-float: float 6s ease-in-out infinite;
@@ -54,24 +94,20 @@ html {
 body {
   background:
     radial-gradient(
-      1100px 600px at 100% -10%,
-      rgba(244, 114, 182, 0.1),
+      1200px 640px at 100% -10%,
+      rgba(244, 114, 182, 0.08),
       transparent 60%
     ),
     radial-gradient(
-      1000px 560px at -10% 0%,
-      rgba(45, 212, 191, 0.1),
-      transparent 55%
-    ),
-    radial-gradient(
-      900px 700px at 50% 120%,
-      rgba(129, 140, 248, 0.12),
+      1000px 700px at 0% 110%,
+      rgba(129, 140, 248, 0.1),
       transparent 60%
     ),
     var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-sans), system-ui, sans-serif;
   min-height: 100dvh;
+  line-height: 1.5;
 }
 
 a {
@@ -82,11 +118,41 @@ a {
   background: rgba(129, 140, 248, 0.35);
 }
 
+/* Visible, consistent keyboard focus ring across the whole app. Only shown
+   for keyboard/programmatic focus (focus-visible), not mouse clicks. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 @utility card {
   background: color-mix(in oklab, var(--color-surface) 88%, transparent);
   border: 1px solid var(--color-border);
-  border-radius: 1rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
   backdrop-filter: blur(6px);
+}
+
+@utility card-interactive {
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+  &:hover {
+    box-shadow: var(--shadow-md);
+  }
 }
 
 @utility text-gradient {

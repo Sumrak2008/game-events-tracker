@@ -78,6 +78,13 @@ export const RECORD_STATUSES: RecordStatus[] = [
   "completed",
 ];
 
+/**
+ * Statuses that may appear in public-facing filters. `completed` is
+ * intentionally excluded — the site never shows completed records, so
+ * offering it as a filter option would only ever produce empty results.
+ */
+export const PUBLIC_RECORD_STATUSES: RecordStatus[] = ["active", "upcoming"];
+
 export const SOURCE_TYPES: SourceType[] = [
   "official",
   "specialist",

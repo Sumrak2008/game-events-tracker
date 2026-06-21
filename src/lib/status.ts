@@ -102,7 +102,7 @@ export function endsToday(record: ComputedRecord, now: number): boolean {
   );
 }
 
-export type SortKey = "ending-soon" | "starting-soon" | "recently-ended";
+export type SortKey = "ending-soon" | "starting-soon";
 
 export function sortRecords(
   records: ComputedRecord[],
@@ -111,12 +111,9 @@ export function sortRecords(
   const copy = [...records];
   switch (key) {
     case "ending-soon":
-      // Active/upcoming with the nearest end first; completed sink to bottom.
       return copy.sort((a, b) => a.endMs - b.endMs);
     case "starting-soon":
       return copy.sort((a, b) => a.startMs - b.startMs);
-    case "recently-ended":
-      return copy.sort((a, b) => b.endMs - a.endMs);
     default:
       return copy;
   }

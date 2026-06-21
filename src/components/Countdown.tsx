@@ -28,15 +28,21 @@ export function Countdown({
   }
 
   if (record.status === "upcoming") {
+    const soon = record.startMs - now <= DAY_MS * 3;
+    const cls = soon
+      ? "bg-urgent/15 text-urgent ring-1 ring-inset ring-urgent/40"
+      : "bg-upcoming/15 text-upcoming ring-upcoming/30 ring-1 ring-inset";
     return (
-      <span
-        className={`${base} bg-upcoming/15 text-upcoming ring-upcoming/30 ring-1 ring-inset`}
-      >
-        Старт {formatRelative(record.startMs, now)}
+      <span className={`${base} ${cls}`}>
+        {soon ? "Скоро начнётся: " : "Старт "}
+        {formatRelative(record.startMs, now)}
       </span>
     );
   }
 
+  // The public UI never renders completed records (see getVisibleRecords),
+  // but this branch is kept so the component stays correct if ever reused
+  // for an internal/admin view of the full record set.
   return (
     <span
       className={`${base} bg-completed/10 text-completed ring-completed/25 ring-1 ring-inset`}

@@ -15,11 +15,12 @@ import {
   hasPremiumCurrency,
   hasSummonCurrency,
 } from "@/lib/records";
-import { computeRecords, sortRecords, type SortKey } from "@/lib/status";
+import { recordDescription, recordTitle } from "@/lib/localized";
+import { endsWithinDays, sortRecords, type SortKey } from "@/lib/status";
 import {
   CONFIDENCE_LEVELS,
   EVENT_SUBTYPES,
-  RECORD_STATUSES,
+  PUBLIC_RECORD_STATUSES,
   RECORD_TYPES,
   type Confidence,
   type EventSubtype,
@@ -29,11 +30,11 @@ import {
   type TrackerRecord,
 } from "@/lib/types";
 import { useNow } from "@/lib/useNow";
+import { getVisibleRecords } from "@/lib/visibility";
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
   { value: "ending-soon", label: "По ближайшему окончанию" },
   { value: "starting-soon", label: "По ближайшему началу" },
-  { value: "recently-ended", label: "Сначала недавно завершенные" },
 ];
 
 function Field({
@@ -53,7 +54,7 @@ function Field({
       <select
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="border-border bg-surface text-text focus:border-accent rounded-lg border px-3 py-2 text-sm transition outline-none"
+        className="border-border bg-surface text-text focus:border-accent h-10 rounded-lg border px-3 text-sm transition outline-none"
       >
         {children}
       </select>
@@ -75,7 +76,7 @@ function Toggle({
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`rounded-full px-3 py-1.5 text-xs font-medium ring-1 transition ring-inset ${
+      className={`flex h-10 min-h-10 items-center rounded-full px-3.5 text-xs font-medium ring-1 transition ring-inset ${
         active
           ? "bg-accent/20 text-text ring-accent/50"
           : "bg-surface text-muted ring-border hover:text-text"
@@ -103,6 +104,7 @@ export function RecordExplorer({
 }) {
   const now = useNow(serverNow);
 
+  const [query, setQuery] = useState("");
   const [gameId, setGameId] = useState("all");
   const [type, setType] = useState<RecordType | "all">("all");
   const [status, setStatus] = useState<RecordStatus | "all">("all");
@@ -113,6 +115,36 @@ export function RecordExplorer({
   const [premiumOnly, setPremiumOnly] = useState(false);
   const [summonOnly, setSummonOnly] = useState(false);
   const [charWeaponOnly, setCharWeaponOnly] = useState(false);
+  const [endingSoonOnly, setEndingSoonOnly] = useState(false);
+
+  function resetFilters() {
+    setQuery("");
+    setGameId("all");
+    setType("all");
+    setStatus("all");
+    setRegion("all");
+    setConfidence("all");
+    setEventType("all");
+    setSort(defaultSort);
+    setPremiumOnly(false);
+    setSummonOnly(false);
+    setCharWeaponOnly(false);
+    setEndingSoonOnly(false);
+  }
+
+  const hasActiveFilters =
+    query !== "" ||
+    gameId !== "all" ||
+    type !== "all" ||
+    status !== "all" ||
+    region !== "all" ||
+    confidence !== "all" ||
+    eventType !== "all" ||
+    sort !== defaultSort ||
+    premiumOnly ||
+    summonOnly ||
+    charWeaponOnly ||
+    endingSoonOnly;
 
   const gamesMap = useMemo(() => new Map(games.map((g) => [g.id, g])), [games]);
 
@@ -121,9 +153,13 @@ export function RecordExplorer({
     [records],
   );
 
-  const computed = useMemo(() => computeRecords(records, now), [records, now]);
+  const computed = useMemo(
+    () => getVisibleRecords(records, now),
+    [records, now],
+  );
 
   const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
     return computed.filter((r) => {
       if (gameId !== "all" && r.gameId !== gameId) return false;
       if (type !== "all" && r.type !== type) return false;
@@ -134,10 +170,24 @@ export function RecordExplorer({
       if (premiumOnly && !hasPremiumCurrency(r)) return false;
       if (summonOnly && !hasSummonCurrency(r)) return false;
       if (charWeaponOnly && !grantsCharacterOrWeapon(r)) return false;
+      if (endingSoonOnly && !endsWithinDays(r, now, 3)) return false;
+      if (q) {
+        const haystack = [
+          recordTitle(r),
+          r.title,
+          r.originalTitle,
+          recordDescription(r),
+        ]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        if (!haystack.includes(q)) return false;
+      }
       return true;
     });
   }, [
     computed,
+    query,
     gameId,
     type,
     status,
@@ -147,8 +197,13 @@ export function RecordExplorer({
     premiumOnly,
     summonOnly,
     charWeaponOnly,
+    endingSoonOnly,
+    now,
   ]);
 
+  // `filtered` is derived from `computed`, which is already restricted to
+  // publicly visible (active/upcoming) records via getVisibleRecords above —
+  // so "review" below can never contain a completed record.
   const main = useMemo(
     () =>
       sortRecords(
@@ -175,6 +230,28 @@ export function RecordExplorer({
   return (
     <section className="space-y-4">
       <div className="card space-y-3 p-4">
+        <div className="flex flex-wrap items-end gap-3">
+          <label className="flex min-w-[200px] flex-1 flex-col gap-1 text-xs">
+            <span className="text-muted">Поиск</span>
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Название или описание…"
+              aria-label="Поиск по названию или описанию"
+              className="border-border bg-surface text-text placeholder:text-subtle focus:border-accent h-10 rounded-lg border px-3 text-sm transition outline-none"
+            />
+          </label>
+          {hasActiveFilters ? (
+            <button
+              type="button"
+              onClick={resetFilters}
+              className="border-border text-muted hover:text-text hover:border-border-strong h-10 shrink-0 rounded-lg border px-3 text-sm transition"
+            >
+              Сбросить фильтры
+            </button>
+          ) : null}
+        </div>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
           {showGameFilter ? (
             <Field label="Игра" value={gameId} onChange={setGameId}>
@@ -204,7 +281,7 @@ export function RecordExplorer({
             onChange={(v) => setStatus(v as RecordStatus | "all")}
           >
             <option value="all">Любой статус</option>
-            {RECORD_STATUSES.map((s) => (
+            {PUBLIC_RECORD_STATUSES.map((s) => (
               <option key={s} value={s}>
                 {statusLabel(s)}
               </option>
@@ -260,6 +337,12 @@ export function RecordExplorer({
           >
             С персонажем или оружием
           </Toggle>
+          <Toggle
+            active={endingSoonOnly}
+            onClick={() => setEndingSoonOnly((v) => !v)}
+          >
+            Скоро закончатся
+          </Toggle>
           <div className="ml-auto">
             <Field
               label="Сортировка"
@@ -296,9 +379,9 @@ export function RecordExplorer({
       {review.length > 0 ? (
         <div className="space-y-3 pt-2">
           <div className="flex items-center gap-2">
-            <h3 className="text-urgent text-base font-semibold">
+            <h2 className="text-urgent text-base font-semibold">
               Требует проверки
-            </h3>
+            </h2>
             <span className="bg-urgent/15 text-urgent rounded-full px-2 py-0.5 text-xs">
               {review.length}
             </span>

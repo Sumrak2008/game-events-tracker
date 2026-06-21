@@ -25,7 +25,7 @@ import {
   recordTitle,
 } from "@/lib/localized";
 import { hasSummonCurrency, premiumCurrencyText } from "@/lib/records";
-import { computeRecord } from "@/lib/status";
+import { getVisibleRecord } from "@/lib/visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -33,8 +33,9 @@ type Params = { params: Promise<{ id: string }> };
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
   const { id } = await params;
-  const { records } = await getTrackerData();
-  const record = records.find((r) => r.id === id);
+  const { records, now: serverNow } = await getTrackerData();
+  const raw = records.find((r) => r.id === id);
+  const record = raw ? getVisibleRecord(raw, serverNow) : null;
   return { title: record ? recordTitle(record) : "Запись" };
 }
 
@@ -59,7 +60,11 @@ export default async function RecordDetailPage({ params }: Params) {
   const raw = records.find((r) => r.id === id);
   if (!raw) notFound();
 
-  const record = computeRecord(raw, serverNow);
+  // A direct link to a completed record must not render — it is treated the
+  // same as a record that doesn't exist.
+  const record = getVisibleRecord(raw, serverNow);
+  if (!record) notFound();
+
   const game = games.find((g) => g.id === record.gameId);
   const title = recordTitle(record);
   const description = recordDescription(record);

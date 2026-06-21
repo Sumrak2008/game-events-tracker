@@ -3,10 +3,14 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
 import { DemoNotice } from "@/components/DemoNotice";
+import { EmptyState } from "@/components/EmptyState";
 import { GameAvatar } from "@/components/GameAvatar";
 import { GameCover } from "@/components/GameCover";
 import { RecordExplorer } from "@/components/RecordExplorer";
 import { getTrackerData } from "@/lib/data";
+import { formatLocalDate } from "@/lib/format";
+import { computeGameStats } from "@/lib/gameStats";
+import { getVisibleRecords } from "@/lib/visibility";
 
 export const dynamic = "force-dynamic";
 
@@ -25,8 +29,10 @@ export default async function GamePage({ params }: Params) {
   const game = games.find((g) => g.id === gameId);
   if (!game) notFound();
 
-  const gameRecords = records.filter((r) => r.gameId === game.id);
-  const hasDemo = gameRecords.some((r) => r.isDemo);
+  const allGameRecords = records.filter((r) => r.gameId === game.id);
+  const visibleGameRecords = getVisibleRecords(allGameRecords, serverNow);
+  const stats = computeGameStats(visibleGameRecords, serverNow);
+  const hasDemo = visibleGameRecords.some((r) => r.isDemo);
 
   return (
     <div className="space-y-6">
@@ -46,21 +52,62 @@ export default async function GamePage({ params }: Params) {
               {game.name}
             </h1>
             {game.publisher ? (
-              <p className="text-sm text-white/75">{game.publisher}</p>
+              <p className="text-sm text-white/75">
+                Баннеры, события и сезоны · {game.publisher}
+              </p>
             ) : null}
           </div>
         </header>
       </GameCover>
 
+      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-5">
+        <div className="card p-3 text-center">
+          <dd className="text-active text-xl font-bold">
+            {stats.activeEvents + stats.activeBanners + stats.activeSeasons}
+          </dd>
+          <dt className="text-muted text-xs">Активных записей</dt>
+        </div>
+        <div className="card p-3 text-center">
+          <dd className="text-upcoming text-xl font-bold">
+            {stats.upcomingEvents +
+              stats.upcomingBanners +
+              stats.upcomingSeasons}
+          </dd>
+          <dt className="text-muted text-xs">Предстоящих</dt>
+        </div>
+        <div className="card p-3 text-center">
+          <dd className="text-banner text-xl font-bold">
+            {stats.activeBanners}
+          </dd>
+          <dt className="text-muted text-xs">Активных баннеров</dt>
+        </div>
+        <div className="card p-3 text-center">
+          <dd className="text-urgent text-xl font-bold">{stats.endingSoon}</dd>
+          <dt className="text-muted text-xs">Скоро закончится</dt>
+        </div>
+        <div className="card col-span-2 p-3 text-center sm:col-span-1">
+          <dd className="text-text text-sm font-semibold">
+            {stats.nearestEndMs
+              ? formatLocalDate(new Date(stats.nearestEndMs).toISOString())
+              : "—"}
+          </dd>
+          <dt className="text-muted text-xs">Ближайшее завершение</dt>
+        </div>
+      </dl>
+
       {hasDemo ? <DemoNotice /> : null}
 
-      <RecordExplorer
-        records={gameRecords}
-        games={games}
-        serverNow={serverNow}
-        showGameFilter={false}
-        emptyMessage="Для этой игры пока нет записей."
-      />
+      {visibleGameRecords.length === 0 ? (
+        <EmptyState message="У этой игры сейчас нет активных или предстоящих записей." />
+      ) : (
+        <RecordExplorer
+          records={visibleGameRecords}
+          games={games}
+          serverNow={serverNow}
+          showGameFilter={false}
+          emptyMessage="Для этой игры нет записей по заданным фильтрам."
+        />
+      )}
     </div>
   );
 }

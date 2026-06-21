@@ -3,9 +3,9 @@
 import { useMemo, useState } from "react";
 
 import { RecordCard } from "@/components/RecordCard";
-import { computeRecords } from "@/lib/status";
 import type { ComputedRecord, Game, TrackerRecord } from "@/lib/types";
 import { useNow } from "@/lib/useNow";
+import { getVisibleRecords } from "@/lib/visibility";
 
 const WEEKDAYS = ["Пн", "Вт", "Ср", "Чт", "Пт", "Сб", "Вс"];
 const MONTHS = [
@@ -47,7 +47,12 @@ export function CalendarView({
 }) {
   const now = useNow(serverNow);
   const gamesMap = useMemo(() => new Map(games.map((g) => [g.id, g])), [games]);
-  const computed = useMemo(() => computeRecords(records, now), [records, now]);
+  // Completed records never appear on the calendar — getVisibleRecords keeps
+  // only active/upcoming records before any start/end markers are built.
+  const computed = useMemo(
+    () => getVisibleRecords(records, now),
+    [records, now],
+  );
 
   const today = new Date(now);
   const [view, setView] = useState({
@@ -92,6 +97,14 @@ export function CalendarView({
     });
   }
 
+  // The site has no archive — browsing into a fully past month would only
+  // ever show empty markers (completed records are filtered out above), so
+  // the "previous month" control is disabled once the current month is
+  // reached.
+  const isCurrentMonth =
+    view.year === today.getFullYear() && view.month === today.getMonth();
+  const canGoToPreviousMonth = !isCurrentMonth;
+
   const selStarts = starts.get(selected) ?? [];
   const selEnds = ends.get(selected) ?? [];
   const [sy, sm, sd] = selected.split("-").map(Number);
@@ -116,8 +129,14 @@ export function CalendarView({
             <button
               type="button"
               onClick={() => shiftMonth(-1)}
-              className="border-border text-muted hover:text-text rounded-lg border px-2.5 py-1 text-sm transition"
+              disabled={!canGoToPreviousMonth}
+              className="border-border text-muted hover:text-text disabled:hover:text-muted flex h-10 w-10 items-center justify-center rounded-lg border text-sm transition disabled:cursor-not-allowed disabled:opacity-30"
               aria-label="Предыдущий месяц"
+              title={
+                canGoToPreviousMonth
+                  ? "Предыдущий месяц"
+                  : "Сайт не показывает полностью прошедшие месяцы"
+              }
             >
               ←
             </button>
@@ -126,14 +145,14 @@ export function CalendarView({
               onClick={() =>
                 setView({ year: today.getFullYear(), month: today.getMonth() })
               }
-              className="border-border text-muted hover:text-text rounded-lg border px-2.5 py-1 text-sm transition"
+              className="border-border text-muted hover:text-text h-10 rounded-lg border px-3 text-sm transition"
             >
               Сегодня
             </button>
             <button
               type="button"
               onClick={() => shiftMonth(1)}
-              className="border-border text-muted hover:text-text rounded-lg border px-2.5 py-1 text-sm transition"
+              className="border-border text-muted hover:text-text flex h-10 w-10 items-center justify-center rounded-lg border text-sm transition"
               aria-label="Следующий месяц"
             >
               →
@@ -157,15 +176,25 @@ export function CalendarView({
             const nEnd = ends.get(key)?.length ?? 0;
             const isToday = key === todayKey;
             const isSelected = key === selected;
+            const summary = [
+              nStart > 0 ? `начинается ${nStart}` : null,
+              nEnd > 0 ? `заканчивается ${nEnd}` : null,
+            ]
+              .filter(Boolean)
+              .join(", ");
             return (
               <button
                 type="button"
                 key={key}
                 onClick={() => setSelected(key)}
+                aria-current={isToday ? "date" : undefined}
+                aria-label={`${day} ${MONTHS[view.month]}${summary ? `, ${summary}` : ""}`}
                 className={`flex aspect-square flex-col items-center justify-start rounded-lg border p-1 text-xs transition ${
                   isSelected
                     ? "border-accent bg-surface-2"
-                    : "border-border hover:bg-surface-2/60"
+                    : isToday
+                      ? "border-accent/50 bg-surface/60"
+                      : "border-border hover:bg-surface-2/60"
                 }`}
               >
                 <span
@@ -198,16 +227,29 @@ export function CalendarView({
           })}
         </div>
 
-        <div className="text-muted mt-3 flex items-center gap-4 text-xs">
-          <span className="text-upcoming">↑ начинается</span>
-          <span className="text-event">↓ заканчивается</span>
+        <div
+          className="text-muted mt-3 flex flex-wrap items-center gap-4 text-xs"
+          aria-hidden="true"
+        >
+          <span className="inline-flex items-center gap-1.5">
+            <span className="bg-upcoming h-1.5 w-1.5 rounded-full" />
+            начинается
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="bg-event h-1.5 w-1.5 rounded-full" />
+            заканчивается
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span className="border-accent/60 bg-surface h-2.5 w-2.5 rounded border" />
+            сегодня
+          </span>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h3 className="text-base font-semibold">
+        <h2 className="text-base font-semibold">
           {sd} {MONTHS[sm]} {sy}
-        </h3>
+        </h2>
 
         <CalendarDayGroup
           title="Начинаются"

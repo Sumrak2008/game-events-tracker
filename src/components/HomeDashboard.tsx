@@ -1,21 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import { useMemo } from "react";
 
 import { EmptyState } from "@/components/EmptyState";
+import { GameAvatar } from "@/components/GameAvatar";
 import { RecordCard } from "@/components/RecordCard";
 import { SectionHeader } from "@/components/SectionHeader";
 import { formatLocalDate } from "@/lib/format";
-import {
-  computeRecords,
-  endsToday,
-  endsWithinDays,
-  sortRecords,
-} from "@/lib/status";
+import { ENDING_SOON_DAYS } from "@/lib/gameStats";
+import { endsWithinDays, sortRecords } from "@/lib/status";
 import type { ComputedRecord, Game, TrackerRecord } from "@/lib/types";
 import { useNow } from "@/lib/useNow";
+import { getVisibleRecords } from "@/lib/visibility";
 
 function Section({
+  id,
   title,
   icon,
   records,
@@ -25,6 +25,7 @@ function Section({
   limit = 6,
   emptyText,
 }: {
+  id: string;
   title: string;
   icon: string;
   records: ComputedRecord[];
@@ -36,7 +37,7 @@ function Section({
 }) {
   const shown = records.slice(0, limit);
   return (
-    <section>
+    <section aria-label={title} id={id} className="scroll-mt-20">
       <SectionHeader
         title={title}
         icon={icon}
@@ -76,24 +77,30 @@ export function HomeDashboard({
   const gamesMap = useMemo(() => new Map(games.map((g) => [g.id, g])), [games]);
 
   const groups = useMemo(() => {
-    const computed = computeRecords(records, now).filter(
+    // getVisibleRecords already excludes completed records — every group
+    // below is built exclusively from active/upcoming records.
+    const visible = getVisibleRecords(records, now);
+    const reviewable = visible.filter(
+      (r) => r.confidence === "conflicting" || r.confidence === "unverified",
+    );
+    const confirmed = visible.filter(
       (r) => r.confidence !== "conflicting" && r.confidence !== "unverified",
     );
     const byEnd = (list: ComputedRecord[]) => sortRecords(list, "ending-soon");
-    const active = computed.filter((r) => r.status === "active");
+    const active = confirmed.filter((r) => r.status === "active");
 
     return {
-      today: byEnd(computed.filter((r) => endsToday(r, now))),
-      soon: byEnd(
-        computed.filter((r) => endsWithinDays(r, now, 3) && !endsToday(r, now)),
+      endingSoon: byEnd(
+        active.filter((r) => endsWithinDays(r, now, ENDING_SOON_DAYS)),
       ),
-      banners: byEnd(active.filter((r) => r.type === "banner")),
       events: byEnd(active.filter((r) => r.type === "event")),
+      banners: byEnd(active.filter((r) => r.type === "banner")),
       seasons: byEnd(active.filter((r) => r.type === "season")),
       upcoming: sortRecords(
-        computed.filter((r) => r.status === "upcoming"),
+        confirmed.filter((r) => r.status === "upcoming"),
         "starting-soon",
       ),
+      review: byEnd(reviewable),
     };
   }, [records, now]);
 
@@ -114,24 +121,36 @@ export function HomeDashboard({
       </div>
 
       <Section
-        title="Заканчиваются сегодня"
+        id="section-ending-soon"
+        title="Скоро закончатся"
         icon="!"
-        records={groups.today}
+        records={groups.endingSoon}
         games={gamesMap}
         now={now}
         href="/ending-soon"
-        emptyText="Сегодня ничего не заканчивается."
+        emptyText="Сейчас ничего не заканчивается в ближайшие дни."
       />
       <Section
-        title="Заканчиваются в ближайшие 3 дня"
-        icon="3"
-        records={groups.soon}
+        id="section-active-events"
+        title="Актуальные события"
+        icon="С"
+        records={groups.events}
         games={gamesMap}
         now={now}
-        href="/ending-soon"
-        emptyText="В ближайшие три дня окончаний нет."
+        emptyText="Нет активных событий."
       />
       <Section
+        id="section-upcoming"
+        title="Предстоящие события"
+        icon="+"
+        records={groups.upcoming}
+        games={gamesMap}
+        now={now}
+        href="/calendar"
+        emptyText="Нет предстоящих записей."
+      />
+      <Section
+        id="section-banners"
         title="Активные баннеры"
         icon="Б"
         records={groups.banners}
@@ -140,30 +159,68 @@ export function HomeDashboard({
         emptyText="Нет активных баннеров."
       />
       <Section
-        title="Активные события"
-        icon="С"
-        records={groups.events}
-        games={gamesMap}
-        now={now}
-        emptyText="Нет активных событий."
-      />
-      <Section
-        title="Текущие сезоны"
+        id="section-seasons"
+        title="Активные сезоны"
         icon="З"
         records={groups.seasons}
         games={gamesMap}
         now={now}
         emptyText="Нет текущих сезонов."
       />
-      <Section
-        title="Ближайшие предстоящие"
-        icon="+"
-        records={groups.upcoming}
-        games={gamesMap}
-        now={now}
-        href="/calendar"
-        emptyText="Нет предстоящих записей."
-      />
+
+      <section aria-label="Игры" id="section-games" className="scroll-mt-20">
+        <SectionHeader
+          title="Игры"
+          icon="G"
+          count={games.length}
+          href="/games"
+        />
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+          {games.map((game) => (
+            <Link
+              key={game.id}
+              href={`/games/${game.id}`}
+              className="card hover:border-accent/60 flex items-center gap-3 p-3 transition hover:-translate-y-0.5"
+            >
+              <GameAvatar game={game} size="sm" />
+              <span className="text-text truncate text-sm font-medium">
+                {game.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {groups.review.length > 0 ? (
+        <section
+          aria-label="Требует проверки"
+          id="section-review"
+          className="scroll-mt-20"
+        >
+          <div className="mb-3 flex items-center gap-2">
+            <h2 className="text-urgent text-lg font-semibold">
+              Требует проверки
+            </h2>
+            <span className="bg-urgent/15 text-urgent rounded-full px-2 py-0.5 text-xs">
+              {groups.review.length}
+            </span>
+          </div>
+          <p className="text-muted mb-3 text-sm">
+            Источники дают разные даты или условия. Записи активны или
+            предстоят, но даты пока не подтверждены.
+          </p>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {groups.review.map((record) => (
+              <RecordCard
+                key={record.id}
+                record={record}
+                game={gamesMap.get(record.gameId)}
+                now={now}
+              />
+            ))}
+          </div>
+        </section>
+      ) : null}
     </div>
   );
 }
