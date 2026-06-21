@@ -16,13 +16,31 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const SITE_URL = "https://game-events-tracker.vercel.app";
+const SITE_NAME = "Game Events Tracker";
+const SITE_DESCRIPTION =
+  "Трекер игровых баннеров, событий и сезонов. Данные хранятся в JSON-файлах проекта.";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Game Events Tracker",
-    template: "%s · Game Events Tracker",
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "Трекер игровых баннеров, событий и сезонов. Данные хранятся в JSON-файлах проекта.",
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [{ url: "/images/social/og-image.webp", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: ["/images/social/og-image.webp"],
+  },
 };
 
 export default async function RootLayout({

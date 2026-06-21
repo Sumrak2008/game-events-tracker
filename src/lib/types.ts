@@ -115,10 +115,10 @@ export interface Game {
   colorFrom: string;
   colorTo: string;
   /**
-   * Optional raster cover image (e.g. /art/games/uploads/genshin.jpg). When
-   * absent, the app falls back to the original stylized SVG art at
-   * /art/games/<id>.svg. This lets raster art replace the SVG later without
-   * code changes.
+   * Optional override for the game's cover image. When absent, the cover is
+   * resolved from the static slug map in `src/lib/game-visuals.ts`; when
+   * neither is set, `GameVisual` renders a CSS gradient + initials
+   * placeholder instead of requesting a missing file.
    */
   imageUrl?: string;
 }

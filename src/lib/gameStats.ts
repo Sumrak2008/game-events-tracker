@@ -1,8 +1,8 @@
+import { ENDING_SOON_DAYS } from "@/lib/stats";
 import { endsWithinDays } from "@/lib/status";
 import type { ComputedRecord } from "@/lib/types";
 
-/** Default "ending soon" window used across the home, games and ending-soon pages. */
-export const ENDING_SOON_DAYS = 3;
+export { ENDING_SOON_DAYS };
 
 export interface GameStats {
   activeEvents: number;

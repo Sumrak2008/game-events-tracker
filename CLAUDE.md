@@ -19,6 +19,7 @@
 - Обязательные поля: `id`, `type`, `gameId`, `title`, `description`, `startAt`, `endAt`, `timezone`, `region`, `sourceType`, `confidence`, `sourceUrls`, `verifiedAt`, `isDemo`.
 - Опционально: `verificationNote`, `imageUrl`, `note`, `sourceUrl` (устар., вместо него `sourceUrls`).
 - Для баннеров опционально `bannerSubtype` (`character`/`weapon`/`equipment`/`other`).
+- **Только баннеры персонажей видны публично.** Не создавай отдельную запись `bannerSubtype: "weapon"` для оружейного/арк-баннера, который идёт парой с баннером персонажа — это всегда подразумевается и не нуждается в отдельной карточке. Название баннера персонажа должно называть персонажа(ей), а не сигнатурное оружие («Баннер Фурины», не «Баннер Фурины и её оружия»). Если несколько персонажей идут одновременно отдельными баннерами выбора — это можно оставить раздельными записями, но не создавай отдельную запись только для оружия. Существующие записи с `bannerSubtype: "weapon"` скрыты из публичного UI (`src/lib/visibility.ts`) на случай, если такая запись всё же появится.
 - Для событий опционально: `eventSubtype` (`major`/`challenge`/`login`/`web`/`limited-mode`/`reward-event`/`other`), `rewards` (массив строк), `rewardSummary`, `premiumCurrencyName`, `premiumCurrencyAmount`, `summonCurrencyAmount`, `requirements`, `claimEndAt`.
 - Даты — ISO 8601 **с указанием часового пояса** (например `2026-06-19T22:00:00+08:00`).
 - Статус (`upcoming`/`active`/`completed`) **не хранится** — он вычисляется по текущему времени, `startAt` и `endAt`. Никогда не добавляй поле статуса в JSON.

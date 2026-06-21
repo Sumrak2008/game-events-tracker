@@ -2,8 +2,15 @@
 
 import { useMemo, useState } from "react";
 
+import { EmptyState } from "@/components/EmptyState";
 import { RecordCard } from "@/components/RecordCard";
-import type { ComputedRecord, Game, TrackerRecord } from "@/lib/types";
+import {
+  dayKey,
+  groupRecordsByDay,
+  recordsInMonth,
+  recordsOnDay,
+} from "@/lib/calendar";
+import type { Game, TrackerRecord } from "@/lib/types";
 import { useNow } from "@/lib/useNow";
 import { getVisibleRecords } from "@/lib/visibility";
 
@@ -23,15 +30,6 @@ const MONTHS = [
   "Декабрь",
 ];
 
-function dayKey(year: number, month: number, day: number): string {
-  return `${year}-${month}-${day}`;
-}
-
-function keyFromMs(ms: number): string {
-  const d = new Date(ms);
-  return dayKey(d.getFullYear(), d.getMonth(), d.getDate());
-}
-
 function mondayIndex(date: Date): number {
   return (date.getDay() + 6) % 7;
 }
@@ -47,8 +45,13 @@ export function CalendarView({
 }) {
   const now = useNow(serverNow);
   const gamesMap = useMemo(() => new Map(games.map((g) => [g.id, g])), [games]);
-  // Completed records never appear on the calendar — getVisibleRecords keeps
-  // only active/upcoming records before any start/end markers are built.
+  const gameNameById = useMemo(
+    () => new Map(games.map((g) => [g.id, g.name])),
+    [games],
+  );
+  // Completed records and weapon banners never appear on the calendar —
+  // getVisibleRecords keeps only publicly visible records before any
+  // start/end grouping or day/month list is built.
   const computed = useMemo(
     () => getVisibleRecords(records, now),
     [records, now],
@@ -59,21 +62,13 @@ export function CalendarView({
     year: today.getFullYear(),
     month: today.getMonth(),
   });
-  const [selected, setSelected] = useState<string>(
-    dayKey(today.getFullYear(), today.getMonth(), today.getDate()),
-  );
+  // null = no specific day selected, showing the whole month's records below.
+  const [selected, setSelected] = useState<string | null>(null);
 
-  const { starts, ends } = useMemo(() => {
-    const s = new Map<string, ComputedRecord[]>();
-    const e = new Map<string, ComputedRecord[]>();
-    for (const r of computed) {
-      const sk = keyFromMs(r.startMs);
-      const ek = keyFromMs(r.endMs);
-      (s.get(sk) ?? s.set(sk, []).get(sk)!).push(r);
-      (e.get(ek) ?? e.set(ek, []).get(ek)!).push(r);
-    }
-    return { starts: s, ends: e };
-  }, [computed]);
+  const { starts, ends } = useMemo(
+    () => groupRecordsByDay(computed),
+    [computed],
+  );
 
   const firstOfMonth = new Date(view.year, view.month, 1);
   const leading = mondayIndex(firstOfMonth);
@@ -91,10 +86,16 @@ export function CalendarView({
   while (cells.length % 7 !== 0) cells.push(null);
 
   function shiftMonth(delta: number) {
+    setSelected(null);
     setView((v) => {
       const d = new Date(v.year, v.month + delta, 1);
       return { year: d.getFullYear(), month: d.getMonth() };
     });
+  }
+
+  function selectDay(day: number) {
+    const key = dayKey(view.year, view.month, day);
+    setSelected((prev) => (prev === key ? null : key));
   }
 
   // The site has no archive — browsing into a fully past month would only
@@ -105,21 +106,25 @@ export function CalendarView({
     view.year === today.getFullYear() && view.month === today.getMonth();
   const canGoToPreviousMonth = !isCurrentMonth;
 
-  const selStarts = starts.get(selected) ?? [];
-  const selEnds = ends.get(selected) ?? [];
-  const [sy, sm, sd] = selected.split("-").map(Number);
-  const dayStartMs = new Date(sy, sm, sd, 0, 0, 0, 0).getTime();
-  const dayEndMs = new Date(sy, sm, sd, 23, 59, 59, 999).getTime();
-  const spanning = computed.filter(
-    (r) =>
-      r.startMs <= dayEndMs &&
-      r.endMs >= dayStartMs &&
-      keyFromMs(r.startMs) !== selected &&
-      keyFromMs(r.endMs) !== selected,
+  const [sy, sm, sd] = (selected ?? "0-0-0").split("-").map(Number);
+  const dayRecords = selected
+    ? recordsOnDay(computed, sy, sm, sd, gameNameById)
+    : [];
+  const monthRecords = useMemo(
+    () => recordsInMonth(computed, view.year, view.month, gameNameById),
+    [computed, view.year, view.month, gameNameById],
   );
 
+  const listTitle = selected
+    ? `События ${sd} ${MONTHS[sm]} ${sy}`
+    : `Записи за ${MONTHS[view.month].toLowerCase()}`;
+  const listRecords = selected ? dayRecords : monthRecords;
+  const emptyText = selected
+    ? "В этот день нет актуальных записей."
+    : "В выбранном месяце нет актуальных записей.";
+
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px]">
+    <div className="space-y-6">
       <div className="card p-4">
         <div className="mb-4 flex items-center justify-between">
           <h2 className="text-lg font-semibold">
@@ -142,9 +147,10 @@ export function CalendarView({
             </button>
             <button
               type="button"
-              onClick={() =>
-                setView({ year: today.getFullYear(), month: today.getMonth() })
-              }
+              onClick={() => {
+                setSelected(null);
+                setView({ year: today.getFullYear(), month: today.getMonth() });
+              }}
               className="border-border text-muted hover:text-text h-10 rounded-lg border px-3 text-sm transition"
             >
               Сегодня
@@ -186,10 +192,11 @@ export function CalendarView({
               <button
                 type="button"
                 key={key}
-                onClick={() => setSelected(key)}
+                onClick={() => selectDay(day)}
                 aria-current={isToday ? "date" : undefined}
+                aria-pressed={isSelected}
                 aria-label={`${day} ${MONTHS[view.month]}${summary ? `, ${summary}` : ""}`}
-                className={`flex aspect-square flex-col items-center justify-start rounded-lg border p-1 text-xs transition ${
+                className={`flex aspect-square flex-col items-center justify-start rounded-lg border p-1 text-xs transition sm:p-1.5 ${
                   isSelected
                     ? "border-accent bg-surface-2"
                     : isToday
@@ -210,7 +217,7 @@ export function CalendarView({
                       className="bg-upcoming/20 text-upcoming rounded px-1 text-[10px]"
                       title={`Начинается: ${nStart}`}
                     >
-                      ↑{nStart}
+                      ▲{nStart}
                     </span>
                   ) : null}
                   {nEnd > 0 ? (
@@ -218,7 +225,7 @@ export function CalendarView({
                       className="bg-event/20 text-event rounded px-1 text-[10px]"
                       title={`Заканчивается: ${nEnd}`}
                     >
-                      ↓{nEnd}
+                      ▼{nEnd}
                     </span>
                   ) : null}
                 </span>
@@ -232,11 +239,11 @@ export function CalendarView({
           aria-hidden="true"
         >
           <span className="inline-flex items-center gap-1.5">
-            <span className="bg-upcoming h-1.5 w-1.5 rounded-full" />
+            <span className="text-upcoming">▲</span>
             начинается
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="bg-event h-1.5 w-1.5 rounded-full" />
+            <span className="text-event">▼</span>
             заканчивается
           </span>
           <span className="inline-flex items-center gap-1.5">
@@ -247,59 +254,33 @@ export function CalendarView({
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-base font-semibold">
-          {sd} {MONTHS[sm]} {sy}
-        </h2>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <h2 className="text-base font-semibold">{listTitle}</h2>
+          {selected ? (
+            <button
+              type="button"
+              onClick={() => setSelected(null)}
+              className="text-accent text-sm transition hover:text-white"
+            >
+              ← Показать весь месяц
+            </button>
+          ) : null}
+        </div>
 
-        <CalendarDayGroup
-          title="Начинаются"
-          records={selStarts}
-          games={gamesMap}
-          now={now}
-        />
-        <CalendarDayGroup
-          title="Заканчиваются"
-          records={selEnds}
-          games={gamesMap}
-          now={now}
-        />
-        <CalendarDayGroup
-          title="Идут в этот день"
-          records={spanning}
-          games={gamesMap}
-          now={now}
-        />
-      </div>
-    </div>
-  );
-}
-
-function CalendarDayGroup({
-  title,
-  records,
-  games,
-  now,
-}: {
-  title: string;
-  records: ComputedRecord[];
-  games: Map<string, Game>;
-  now: number;
-}) {
-  if (records.length === 0) return null;
-  return (
-    <div className="space-y-2">
-      <p className="text-muted text-sm font-medium">
-        {title} · {records.length}
-      </p>
-      <div className="grid gap-3">
-        {records.map((r) => (
-          <RecordCard
-            key={r.id}
-            record={r}
-            game={games.get(r.gameId)}
-            now={now}
-          />
-        ))}
+        {listRecords.length === 0 ? (
+          <EmptyState message={emptyText} />
+        ) : (
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {listRecords.map((record) => (
+              <RecordCard
+                key={record.id}
+                record={record}
+                game={gamesMap.get(record.gameId)}
+                now={now}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

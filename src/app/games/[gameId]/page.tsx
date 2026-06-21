@@ -6,6 +6,7 @@ import { DemoNotice } from "@/components/DemoNotice";
 import { EmptyState } from "@/components/EmptyState";
 import { GameAvatar } from "@/components/GameAvatar";
 import { GameCover } from "@/components/GameCover";
+import { GameFavoriteToggle } from "@/components/GameFavoriteToggle";
 import { RecordExplorer } from "@/components/RecordExplorer";
 import { getTrackerData } from "@/lib/data";
 import { formatLocalDate } from "@/lib/format";
@@ -45,18 +46,21 @@ export default async function GamePage({ params }: Params) {
         zoom={false}
         className="border-border h-56 rounded-2xl border sm:h-64"
       >
-        <header className="flex h-full items-end gap-4 p-6">
-          <GameAvatar game={game} size="lg" />
-          <div>
-            <h1 className="text-2xl font-bold text-white drop-shadow sm:text-3xl">
-              {game.name}
-            </h1>
-            {game.publisher ? (
-              <p className="text-sm text-white/75">
-                Баннеры, события и сезоны · {game.publisher}
-              </p>
-            ) : null}
+        <header className="flex h-full items-end justify-between gap-4 p-6">
+          <div className="flex items-end gap-4">
+            <GameAvatar game={game} size="lg" />
+            <div>
+              <h1 className="text-2xl font-bold text-white drop-shadow sm:text-3xl">
+                {game.name}
+              </h1>
+              {game.publisher ? (
+                <p className="text-sm text-white/75">
+                  Баннеры, события и сезоны · {game.publisher}
+                </p>
+              ) : null}
+            </div>
           </div>
+          <GameFavoriteToggle gameId={game.id} gameName={game.name} />
         </header>
       </GameCover>
 

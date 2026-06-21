@@ -8,6 +8,7 @@ import {
   isRecordActive,
   isRecordUpcoming,
   isRecordPubliclyVisible,
+  isWeaponBanner,
 } from "./visibility.ts";
 import type { TrackerRecord } from "./types.ts";
 
@@ -226,4 +227,61 @@ test("12. boundary comparison around the exact end instant", () => {
   const justBeforeEnd = computeRecord(r, endMs - 1);
   assert.equal(justBeforeEnd.status, "active");
   assert.equal(isRecordPubliclyVisible(justBeforeEnd), true);
+});
+
+test("character banner is visible while weapon banner is excluded", () => {
+  const character = record({
+    id: "character-banner",
+    type: "banner",
+    bannerSubtype: "character",
+    startAt: new Date(NOW - DAY).toISOString(),
+    endAt: new Date(NOW + DAY).toISOString(),
+  });
+  const weapon = record({
+    id: "weapon-banner",
+    type: "banner",
+    bannerSubtype: "weapon",
+    startAt: new Date(NOW - DAY).toISOString(),
+    endAt: new Date(NOW + DAY).toISOString(),
+  });
+  assert.equal(isWeaponBanner(computeRecord(character, NOW)), false);
+  assert.equal(isWeaponBanner(computeRecord(weapon, NOW)), true);
+  assert.equal(isRecordPubliclyVisible(computeRecord(character, NOW)), true);
+  assert.equal(isRecordPubliclyVisible(computeRecord(weapon, NOW)), false);
+});
+
+test("an upcoming weapon banner is still excluded (not just completed ones)", () => {
+  const weapon = record({
+    id: "weapon-upcoming",
+    type: "banner",
+    bannerSubtype: "weapon",
+    startAt: new Date(NOW + DAY).toISOString(),
+    endAt: new Date(NOW + 2 * DAY).toISOString(),
+  });
+  const computed = computeRecord(weapon, NOW);
+  assert.equal(computed.status, "upcoming");
+  assert.equal(isRecordPubliclyVisible(computed), false);
+});
+
+test("weapon banner is excluded from getVisibleRecords/getVisibleRecord", () => {
+  const weapon = record({
+    id: "weapon-list",
+    type: "banner",
+    bannerSubtype: "weapon",
+    startAt: new Date(NOW - DAY).toISOString(),
+    endAt: new Date(NOW + DAY).toISOString(),
+  });
+  const character = record({
+    id: "character-list",
+    type: "banner",
+    bannerSubtype: "character",
+    startAt: new Date(NOW - DAY).toISOString(),
+    endAt: new Date(NOW + DAY).toISOString(),
+  });
+  const visible = getVisibleRecords([weapon, character], NOW);
+  assert.deepEqual(
+    visible.map((r) => r.id),
+    ["character-list"],
+  );
+  assert.equal(getVisibleRecord(weapon, NOW), null);
 });

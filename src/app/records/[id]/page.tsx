@@ -25,6 +25,7 @@ import {
   recordTitle,
 } from "@/lib/localized";
 import { hasSummonCurrency, premiumCurrencyText } from "@/lib/records";
+import { normalizeRegionLabel } from "@/lib/region";
 import { getVisibleRecord } from "@/lib/visibility";
 
 export const dynamic = "force-dynamic";
@@ -185,7 +186,7 @@ export default async function RecordDetailPage({ params }: Params) {
           />
         ) : null}
         <DetailRow label="Часовой пояс" value={record.timezone} />
-        <DetailRow label="Регион" value={record.region} />
+        <DetailRow label="Регион" value={normalizeRegionLabel(record.region)} />
         <DetailRow
           label="Достоверность"
           value={<ConfidenceBadge confidence={record.confidence} />}

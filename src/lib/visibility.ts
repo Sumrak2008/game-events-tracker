@@ -28,12 +28,25 @@ export function isRecordUpcoming(record: ComputedRecord): boolean {
 }
 
 /**
+ * True if the record is a standalone weapon/light-cone/arc banner. The site
+ * only shows character banners — a weapon banner running alongside a
+ * character banner is implied and never gets its own public card. This is
+ * decided purely from the existing `bannerSubtype` field (no name-sniffing
+ * heuristics), so it only ever matches records explicitly tagged as such.
+ */
+export function isWeaponBanner(record: ComputedRecord): boolean {
+  return record.type === "banner" && record.bannerSubtype === "weapon";
+}
+
+/**
  * True if the record may be shown anywhere in the public UI. A record with
  * dates that could not be parsed is treated conservatively as not visible —
  * we cannot confirm it is still current, so it is hidden rather than risking
- * a stale record looking active forever.
+ * a stale record looking active forever. Standalone weapon banners are never
+ * publicly visible (see `isWeaponBanner`), even if active/upcoming.
  */
 export function isRecordPubliclyVisible(record: ComputedRecord): boolean {
+  if (isWeaponBanner(record)) return false;
   return isRecordActive(record) || isRecordUpcoming(record);
 }
 

@@ -98,30 +98,6 @@
     "titleTranslation": "editorial"
   },
   {
-    "id": "genshin-weapon-banner-lohen-mavuika-2026-06",
-    "type": "banner",
-    "gameId": "genshin-impact",
-    "title": "Молитва события оружия: сигнатурное оружие Lohen и Mavuika",
-    "description": "Оружейный баннер второй половины версии 6.6 с сигнатурным оружием для Lohen и Mavuika.",
-    "bannerSubtype": "weapon",
-    "startAt": "2026-06-09T00:00:00+00:00",
-    "endAt": "2026-06-30T23:59:00+00:00",
-    "timezone": "UTC",
-    "region": "Global",
-    "sourceType": "specialist",
-    "confidence": "single-source",
-    "sourceUrls": [
-      "https://www.pcgamer.com/games/rpg/genshin-impact-banner-next-current/"
-    ],
-    "verifiedAt": "2026-06-19T12:00:00+00:00",
-    "verificationNote": "Источник подтверждает, что текущий оружейный баннер включает сигнатурное оружие Lohen и Mavuika, но в сохраненном тексте статьи не указаны названия оружия.",
-    "isDemo": false,
-    "originalTitle": "Weapon Event Wish: Lohen and Mavuika signatures",
-    "titleRu": "Молитва события оружия: сигнатурное оружие Lohen и Mavuika",
-    "descriptionRu": "Оружейный баннер второй половины версии 6.6 с сигнатурным оружием для Lohen и Mavuika.",
-    "titleTranslation": "editorial"
-  },
-  {
     "id": "zzz-banner-velina-3-0",
     "type": "banner",
     "gameId": "zenless-zone-zero",
@@ -226,32 +202,6 @@
     "titleTranslation": "editorial"
   },
   {
-    "id": "hsr-light-cone-banner-2026-06-phase-1",
-    "type": "banner",
-    "gameId": "honkai-star-rail",
-    "title": "Прыжок события светового конуса: Reforged in Hellfire / When She Decided to See",
-    "description": "Баннеры световых конусов первой половины версии 4.3 для сигнатур Mortenax Blade и Yao Guang.",
-    "bannerSubtype": "weapon",
-    "startAt": "2026-06-01T00:00:00+00:00",
-    "endAt": "2026-06-24T23:59:00+00:00",
-    "timezone": "UTC",
-    "region": "Global",
-    "sourceType": "specialist",
-    "confidence": "corroborated",
-    "sourceUrls": [
-      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/",
-      "https://game8.co/games/Honkai-Star-Rail/archives/408381",
-      "https://www.gamsgo.com/blog/hsr-4-3-banner"
-    ],
-    "verifiedAt": "2026-06-21T00:00:00+00:00",
-    "verificationNote": "Источник указывает Reforged in Hellfire и When She Decided to See как текущие баннеры световых конусов первой половины версии 4.3 с периодом с 1 по 24 июня 2026 года.",
-    "isDemo": false,
-    "originalTitle": "Light Cone Event Warp: Reforged in Hellfire / When She Decided to See",
-    "titleRu": "Прыжок события светового конуса: Reforged in Hellfire / When She Decided to See",
-    "descriptionRu": "Баннеры световых конусов первой половины версии 4.3 для сигнатур Mortenax Blade и Yao Guang.",
-    "titleTranslation": "editorial"
-  },
-  {
     "id": "hsr-banner-phainon-2026-06",
     "type": "banner",
     "gameId": "honkai-star-rail",
@@ -304,32 +254,6 @@
     "titleTranslation": "editorial"
   },
   {
-    "id": "hsr-light-cone-banner-2026-06-phase-2",
-    "type": "banner",
-    "gameId": "honkai-star-rail",
-    "title": "Прыжок события светового конуса: Thus Burns the Dawn / This Love, Forever",
-    "description": "Баннеры световых конусов второй половины версии 4.3 для сигнатур Phainon и Cyrene.",
-    "bannerSubtype": "weapon",
-    "startAt": "2026-06-24T00:00:00+00:00",
-    "endAt": "2026-07-14T23:59:00+00:00",
-    "timezone": "UTC",
-    "region": "Global",
-    "sourceType": "specialist",
-    "confidence": "corroborated",
-    "sourceUrls": [
-      "https://www.pcgamer.com/games/rpg/honkai-star-rail-banner-next-current/",
-      "https://game8.co/games/Honkai-Star-Rail/archives/408381",
-      "https://www.gamsgo.com/blog/hsr-4-3-banner"
-    ],
-    "verifiedAt": "2026-06-21T00:00:00+00:00",
-    "verificationNote": "Источник указывает Thus Burns the Dawn и This Love, Forever как следующие баннеры световых конусов второй половины версии 4.3 с периодом с 24 июня по 14 июля 2026 года.",
-    "isDemo": false,
-    "originalTitle": "Light Cone Event Warp: Thus Burns the Dawn / This Love, Forever",
-    "titleRu": "Прыжок события светового конуса: Thus Burns the Dawn / This Love, Forever",
-    "descriptionRu": "Баннеры световых конусов второй половины версии 4.3 для сигнатур Phainon и Cyrene.",
-    "titleTranslation": "editorial"
-  },
-  {
     "id": "nte-banner-lacrimosa-2026-06",
     "type": "banner",
     "gameId": "neverness-to-everness",
@@ -352,31 +276,6 @@
     "originalTitle": "Limited Banner: Lacrimosa",
     "titleRu": "Ограниченный баннер: Lacrimosa",
     "descriptionRu": "Ограниченный баннер персонажа S-класса Lacrimosa в первой половине версии 1.1 с повышенным шансом для персонажей A-класса Mint, Edgar и Adler.",
-    "titleTranslation": "editorial"
-  },
-  {
-    "id": "nte-weapon-banner-last-rose-2026-06",
-    "type": "banner",
-    "gameId": "neverness-to-everness",
-    "title": "Программа исследования арков: The Last Rose",
-    "description": "Текущий оружейный баннер арка с сигнатурным жидким арком S-класса Lacrimosa — The Last Rose.",
-    "bannerSubtype": "weapon",
-    "startAt": "2026-06-03T06:00:00+08:00",
-    "endAt": "2026-06-24T05:59:00+08:00",
-    "timezone": "UTC+8",
-    "region": "Global",
-    "sourceType": "official",
-    "confidence": "confirmed",
-    "sourceUrls": [
-      "https://nte.perfectworld.com/en/article/news/gamebroad/20260602/262479.html",
-      "https://www.pcgamer.com/games/action/neverness-to-everness-banners-next-current-gacha-explained/"
-    ],
-    "verifiedAt": "2026-06-21T00:00:00+00:00",
-    "verificationNote": "Подтверждено официальными заметками версии 1.1: программа арков названа \"Nocturne Special\" Arc Research Program; The Last Rose — сигнатурный арк Lacrimosa в этой программе.",
-    "isDemo": false,
-    "originalTitle": "Arc Research Program: The Last Rose",
-    "titleRu": "Программа исследования арков: The Last Rose",
-    "descriptionRu": "Текущий оружейный баннер арка с сигнатурным жидким арком S-класса Lacrimosa — The Last Rose.",
     "titleTranslation": "editorial"
   },
   {

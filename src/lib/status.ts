@@ -101,20 +101,3 @@ export function endsToday(record: ComputedRecord, now: number): boolean {
     record.endMs <= endOfLocalDay(now)
   );
 }
-
-export type SortKey = "ending-soon" | "starting-soon";
-
-export function sortRecords(
-  records: ComputedRecord[],
-  key: SortKey = "ending-soon",
-): ComputedRecord[] {
-  const copy = [...records];
-  switch (key) {
-    case "ending-soon":
-      return copy.sort((a, b) => a.endMs - b.endMs);
-    case "starting-soon":
-      return copy.sort((a, b) => a.startMs - b.startMs);
-    default:
-      return copy;
-  }
-}
